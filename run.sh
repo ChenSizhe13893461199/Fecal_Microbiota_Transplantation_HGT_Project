@@ -78,7 +78,7 @@ for i in "${!pre_samples[@]}"; do
     echo "======== processing the $((i+1)) th sample ========"""
     echo "Pre-FMT: $pre | Donor: $donor | Post-FMT: $post"
 
-    #
+    # The following codes start to do the 1st round of sequence alignment between FMT donor and post-FMT recipient
     donor_db="${BLAST_DB_DIR}/${donor}_donor_db"
     if [ ! -d "$donor_db" ]; then
         echo "create donor database：$donor_db"
