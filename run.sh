@@ -4,7 +4,7 @@ TRIMMED_DIR="FMT_HGT" #The Directory where all metagenomic assembled files
 BLAST_DB_DIR="blast_dbs" # The Directory where temporary files of blasting
 RESULTS_DIR="blast_results" # The Directory where temporary files of analysis
 
-# -------------------------- checking --------------------------
+# -------------------------- initial checking for necessary tools --------------------------
 check_tool() {
     local tools=("python3" "makeblastdb" "blastn")
     for tool in "${tools[@]}"; do
