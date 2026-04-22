@@ -116,7 +116,7 @@ for i in "${!pre_samples[@]}"; do
         echo "warning：Post-FMT2 BLAST failed！"
     }
 
-    
+    # The following script "blastn_process.py" was used to generate summary of alignment, in which -t (or --threshold) controls the filtering threshold for the ratio of alignment length
     python blastn_process.py -i "${RESULTS_DIR}/${post}_blast_donor.txt" -o "${RESULTS_DIR}/${post}_gt_donor_results.txt" -t 0.9
     python blastn_process.py -i "${RESULTS_DIR}/${post}_blast_recipient.txt" -o "${RESULTS_DIR}/${post}_gt_recipient_results.txt" -t 0.9
 
