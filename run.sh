@@ -30,10 +30,10 @@ python3 - <<END  #
 import pandas as pd
 import os
 
-df = pd.read_excel(os.path.abspath("$INPUT_XLSX"), engine='openpyxl')  # 
-pre_list = df['Pre-FMT'].dropna().astype(str).tolist()
-donor_list = df['Donor'].dropna().astype(str).tolist()
-post_list = df['Post-FMT'].dropna().astype(str).tolist()
+df = pd.read_excel(os.path.abspath("$INPUT_XLSX"), engine='openpyxl')  #reading the input FMT file 
+pre_list = df['Pre-FMT'].dropna().astype(str).tolist() #pre-FMT recipient
+donor_list = df['Donor'].dropna().astype(str).tolist() #donor
+post_list = df['Post-FMT'].dropna().astype(str).tolist() # post-FMT recipient
 
 with open('temp_pre.txt', 'w') as f: f.write('\n'.join(pre_list))
 with open('temp_donor.txt', 'w') as f: f.write('\n'.join(donor_list))
