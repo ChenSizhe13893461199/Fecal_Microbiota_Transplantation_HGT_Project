@@ -78,7 +78,7 @@ for i in "${!pre_samples[@]}"; do
     echo "======== processing the $((i+1)) th sample ========"""
     echo "Pre-FMT: $pre | Donor: $donor | Post-FMT: $post"
 
-    # The following codes start to do the 1st round of sequence alignment between FMT donor and post-FMT recipient
+    # The following codes start to do the 1st round of sequence alignment between FMT donor and post-FMT recipient (database construction)
     donor_db="${BLAST_DB_DIR}/${donor}_donor_db"
     if [ ! -d "$donor_db" ]; then
         echo "create donor database：$donor_db"
@@ -87,7 +87,7 @@ for i in "${!pre_samples[@]}"; do
             continue
         }
     fi
-    # The following codes start to do the 1st round of sequence alignment between pre-FMT recipient and post-FMT recipient
+    # The following codes start to do the 1st round of sequence alignment between pre-FMT recipient and post-FMT recipient (database construction)
     recipient_db="${BLAST_DB_DIR}/${pre}_recipient_db"
     if [ ! -d "$recipient_db" ]; then
         echo "create recipient database：$recipient_db"
@@ -97,7 +97,7 @@ for i in "${!pre_samples[@]}"; do
         }
     fi
 
-    # 
+    # The following codes start to do the 1st round of sequence alignment between FMT donor and post-FMT recipient
     #export BLASTDB="${BLAST_DB_DIR}:${BLASTDB}"
     blastn -query "$post_fasta" \
            -db "$donor_db" \
@@ -106,7 +106,7 @@ for i in "${!pre_samples[@]}"; do
            -out "${RESULTS_DIR}/${post}_blast_donor.txt" || {
         echo "warning：Post-FMT1 BLAST failed！"
     }
-
+    #The following codes start to do the 1st round of sequence alignment between pre-FMT recipient and post-FMT recipient
     #export BLASTDB="${BLAST_DB_DIR}:${BLASTDB}"
     blastn -query "$post_fasta" \
            -db "$recipient_db" \
