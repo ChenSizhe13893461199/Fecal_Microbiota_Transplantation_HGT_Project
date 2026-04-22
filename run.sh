@@ -87,7 +87,7 @@ for i in "${!pre_samples[@]}"; do
             continue
         }
     fi
-
+    # The following codes start to do the 1st round of sequence alignment between pre-FMT recipient and post-FMT recipient
     recipient_db="${BLAST_DB_DIR}/${pre}_recipient_db"
     if [ ! -d "$recipient_db" ]; then
         echo "create recipient database：$recipient_db"
