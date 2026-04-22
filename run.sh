@@ -49,7 +49,7 @@ rm -f temp_*.txt
 
 # check sample consistency
 if [ ${#pre_samples[@]} -ne ${#donor_samples[@]} ] || [ ${#pre_samples[@]} -ne ${#post_samples[@]} ]; then
-    echo "错误：样本数量不一致！"
+    echo "Error：Sample Numbers are Inconsistent！"
     exit 1
 fi
 
