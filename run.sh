@@ -1,10 +1,8 @@
 #!/bin/bash
-
-# default parameters
-INPUT_XLSX="FMT_list.xlsx"
-TRIMMED_DIR="FMT_HGT"
-BLAST_DB_DIR="blast_dbs"
-RESULTS_DIR="blast_results"
+INPUT_XLSX="FMT_list.xlsx" #It contains information of pre-FMT recipient, post-FMT recipient, and Donor Name and Orders
+TRIMMED_DIR="FMT_HGT" #The Directory where all metagenomic assembled files
+BLAST_DB_DIR="blast_dbs" # The Directory where temporary files of blasting
+RESULTS_DIR="blast_results" # The Directory where temporary files of analysis
 
 # -------------------------- checking --------------------------
 check_tool() {
