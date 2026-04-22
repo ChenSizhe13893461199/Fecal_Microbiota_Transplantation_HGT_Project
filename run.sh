@@ -21,7 +21,7 @@ if [ ! -f "$INPUT_XLSX" ]; then  # repair
     exit 1
 fi
 
-# -------------------------- initialize environment --------------------------
+# -------------------------- initialize environment of tasks for analysis--------------------------
 check_tool
 mkdir -p "$TRIMMED_DIR" "$BLAST_DB_DIR" "$RESULTS_DIR"
 
