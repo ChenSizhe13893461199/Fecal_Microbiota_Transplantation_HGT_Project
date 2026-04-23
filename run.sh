@@ -267,7 +267,7 @@ mkdir filter
 # The filterchecking.py script performs a final quality‑control and filtering step on the HGT results. It:
 # Reads all *_HGT_statistics.txt files located under the final/ directory.
 # For each record, extracts the simplified species name (genus + species level) from the full taxonomic description of both the recipient (post‑FMT) and the donor contig.
-# Removes entries where: Recipient and donor species are identical (either exact match or same simplified species name). Either species is identified as human (Homo sapiens).
+# Removes entries where: Recipient and donor species are identical (removal of potential translocation event or false-positives). Either species is identifiedas human (Homo sapiens).
 # Species information is missing or invalid. Writes the filtered records into the filter/ directory, preserving the original file names and subfolder structure.
 # Thus, filterchecking.py ensures that the final HGT list contains only genuine cross‑species transfer events between different microbial taxa
 # excluding self‑matches and human contamination
