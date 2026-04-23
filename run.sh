@@ -237,3 +237,7 @@ rm -rf output/*_aligned.fasta.gbk
 source activate base
 mkdir filter
 python filterchecking.py
+
+#To further confirm the factuality of those detected HGT regions, the recipient- and donor-source context were extracted and independently
+# aligned against standard reference microbial genome database. Only those cases with HGT regions and non-HGT loci phylogenetically assigned
+# to divergent species were retained to implement final round checking, with filtered cases as bona fide HGT events
