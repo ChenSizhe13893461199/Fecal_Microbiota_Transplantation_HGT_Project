@@ -219,6 +219,14 @@ mkdir -p final
 
 # quality control for microbial divergent source searching
 source activate kraken2 # please use your own environment name for utilization
+
+#The convert.sh script is a helper that extracts the specific contig sequences needed for downstream taxonomic annotation (at species-level) (via Kraken2).
+# For each sample pair (Pre‑FMT, Donor, Post‑FMT), it: Reads the previously generated result/{post}_HGT_full.txt to obtain the donor contig names
+# and recipient (post‑FMT) contig names. Uses the aforementioned results (recipient‑to‑donor alignments) to map each post‑FMT contig to the corresponding pre‑FMT contig.
+# Retrieves the actual nucleotide sequences of the pre‑FMT and donor contigs from the original filtered FASTA files (FMT_HGT/*_filter.fasta) and then
+# writes them into two separate FASTA files (result/{post}_HGT_recipient_contig.fasta and result/{donor}_HGT_donor_contig.fasta).
+
+Thus, convert.sh prepares the necessary input sequences for later species assignment, linking each candidate HGT gene to its source donor and recipient background contigs
 ./convert.sh
 ./add_species_script.sh
 ./root.sh
