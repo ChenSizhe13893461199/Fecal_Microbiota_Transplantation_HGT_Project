@@ -207,7 +207,7 @@ mkdir result
 # 1) Parses eggnog‑mapper annotations (.emapper.annotations) to retrieve gene descriptions, COG categories, taxonomic assignments, and genomic coordinates
 # 2) for each predicted gene in the recipient’s HGT‑candidate region. Reads donor BLAST results (donor_contig1.txt) to extract high‑scoring segment pairs (HSPs)
 # between donor and recipient contigs.
-# 3) Calculates GC content for both the HGT region (from *_aligned.fasta) and the original donor contig (from donor_contig fasta file).
+# 3) Calculates GC content for both the HGT region (from *_aligned.fasta) and the original donor contig (from donor_contig fasta file) (GC content of contig receiving HGT (non-HGT region) will also be calculated later).
 # 4) Matches each gene to the overlapping HSP on the donor side, extracting alignment identity (rate) and alignment length
 # 5) Generates a tab‑separated output file (result/{post}_HGT_full.txt) containing, for every validated gene: GC content of the HGT region and of the donor contig
 # Gene description, COG category, taxonomic species, Recipient gene identifier and donor contig with coordinates, BLAST identity and alignment length
