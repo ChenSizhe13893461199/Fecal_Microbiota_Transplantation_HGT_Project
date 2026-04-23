@@ -165,7 +165,7 @@ for i in "${!pre_samples[@]}"; do
 
     # The following codes implement the 1st round detection of potential HGT regions on others (suspected contigs may contain HGT region)
     # using the other fasta file as root, the HGT.py search for any potential contigs shared high homologous rate (identity ≥ 99.0%， e-value ≤ 10^(-10)) to donbor contig
-    #
+    # within certain length range ([500bp, 50% of full contig length]).
     python HGT.py \
         --other_fasta "${RESULTS_DIR}/${donor}_${post}_contigs_other.fasta" \
         --recipient_blast "${RESULTS_DIR}/${post}_blast_recipient1.txt" \
