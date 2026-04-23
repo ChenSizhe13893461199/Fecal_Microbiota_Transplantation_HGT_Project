@@ -129,7 +129,7 @@ for i in "${!pre_samples[@]}"; do
     #using the two .txt file generated above to classify contigs (among contigs in post-FMT recipients) from donor, from pre-FMT recipient, both (from donor and pre-FMT recipient), 
     #and others (not specified in output code above, classifer.py will generate 4 files including the others (suspected contigs may contain HGT region)).
 
-    #removing some redundnat files
+    # removing some redundnat files
     rm "${RESULTS_DIR}/${post}_blast_donor.txt"
     rm "${RESULTS_DIR}/${post}_blast_recipient.txt"
     rm "${RESULTS_DIR}/${post}_gt_donor_results.txt"
@@ -177,7 +177,7 @@ for i in "${!pre_samples[@]}"; do
         --output_prefix "$post" "$donor"
     mkdir -p HGT
 
-    #removing some redundnat files
+    # removing some redundnat files
     mv "${post}_aligned.fasta" HGT/
     mv "${donor}_aligned.fasta" HGT/
     mv "${post}_contig.fasta" HGT/
@@ -225,17 +225,52 @@ source activate kraken2 # please use your own environment name for utilization
 # and recipient (post‑FMT) contig names. Uses the aforementioned results (recipient‑to‑donor alignments) to map each post‑FMT contig to the corresponding pre‑FMT contig.
 # Retrieves the actual nucleotide sequences of the pre‑FMT and donor contigs from the original filtered FASTA files (FMT_HGT/*_filter.fasta) and then
 # writes them into two separate FASTA files (result/{post}_HGT_recipient_contig.fasta and result/{donor}_HGT_donor_contig.fasta).
-
-Thus, convert.sh prepares the necessary input sequences for later species assignment, linking each candidate HGT gene to its source donor and recipient background contigs
+$Thus, convert.sh prepares the necessary input sequences for later species assignment, linking each candidate HGT gene to its source donor and recipient background contigs
 ./convert.sh
+
+# The add_species_script.sh script enriches the HGT annotation table with taxonomic information. For each sample pair (recipient post‑FMT and donor), it:
+# Extracts the unique recipient and donor contig names from the existing result/{post}_HGT_full.txt file.
+# Runs Kraken2 on the FASTA files of those contigs (previously prepared by convert.sh) to obtain taxonomic assignments.
+# Uses taxonkit to convert the assigned taxon IDs into scientific species names (last part of the lineage).
+# Merges the species names back into the original HGT table by matching contig identifiers, appending two new columns: recipient_species and donor_species.
+# Outputs the final annotated table into the final/ directory as {post}_HGT_full.txt.
+# Thus, this script provides essential ecological context by assigning a putative source organism to both the recipient and donor contigs involved in each putative HGT event
 ./add_species_script.sh
+
+# The root.sh script (referenced as merge_names.sh in its content) consolidates contig names with their corresponding species assignments.
+# For each sample pair (post‑FMT recipient and donor), it:
+# Reads the previously generated lists of unique contig names (result/{donor}_donor_names.txt, result/{post}_recipient_names.txt).
+# Reads the species mapping files produced by add_species_script.sh (result/{donor}_donor.species.map, result/{post}_recipient.species.map).
+# Merges the two files side‑by‑side using paste and extracts the contig name (first column) and the species
+# name (third column), writing the result into two simple two‑column files: result/{donor}_name.txt and result/{post}_name.txt.
+# Thus, root.sh creates clean, ready‑to‑use lookup tables that link
+# each contig identifier to its assigned taxonomic species, facilitating downstream steps such as further filtering or reporting
 ./root.sh
+
+#The fill_species.sh script finalizes the species annotation for each HGT event. For each sample pair (post‑FMT recipient and donor), it:
+# Reads the previously generated final/{post}_HGT_full.txt file (which already contains recipient and donor contig names).
+# Uses the lookup tables result/{post}_name.txt and result/{donor}_name.txt (created by root.sh) that map each contig identifier to its assigned species name.
+# Replaces the placeholder columns recipient_species and donor_species with the actual species names by matching the contig basenames (stripping genomic coordinates and gene numbers).
+# Outputs a complete, ready‑to‑use file final/{post}_HGT_statistics.txt where every row is fully annotated with ecological source information for both recipient and donor contigs.
+# Thus, fill_species.sh is the final step that produces the enriched HGT summary table suitable for downstream statistical analysis and interpretation.
 ./fill_species.sh
+
+# removing some redundnat files
 rm final/*_HGT_full.txt
 #rm -rf result/*
 rm -rf output/*_aligned.fasta.gbk
+
+# please use your own environment name for utilization
 source activate base
 mkdir filter
+
+# The filterchecking.py script performs a final quality‑control and filtering step on the HGT results. It:
+# Reads all *_HGT_statistics.txt files located under the final/ directory.
+# For each record, extracts the simplified species name (genus + species level) from the full taxonomic description of both the recipient (post‑FMT) and the donor contig.
+# Removes entries where: Recipient and donor species are identical (either exact match or same simplified species name). Either species is identified as human (Homo sapiens).
+# Species information is missing or invalid. Writes the filtered records into the filter/ directory, preserving the original file names and subfolder structure.
+# Thus, filterchecking.py ensures that the final HGT list contains only genuine cross‑species transfer events between different microbial taxa
+# excluding self‑matches and human contamination
 python filterchecking.py
 
 #To further confirm the factuality of those detected HGT regions, the recipient- and donor-source context were extracted and independently
