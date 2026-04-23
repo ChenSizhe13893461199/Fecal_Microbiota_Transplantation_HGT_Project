@@ -212,8 +212,15 @@ mkdir result
 # 5) Generates a tab‑separated output file (result/{post}_HGT_full.txt) containing, for every validated gene: GC content of the HGT region and of the donor contig
 # Gene description, COG category, taxonomic species, Recipient gene identifier and donor contig with coordinates, BLAST identity and alignment length
 
-python qc_annotation.py 
+python qc_annotation.py
+
+
+
+
+# create the directory
 mkdir -p final
+
+# quality control for microbial divergent source searching
 source activate kraken2
 ./convert.sh
 ./add_species_script.sh
