@@ -286,13 +286,19 @@ mkdir filter
 python filterchecking.py
 
 # The provided Python script aggregates and filters horizontal gene transfer (HGT) events across multiple FMT (fecal microbiota transplantation) samples. Its main functions are:
-# Scans each FMT sample folder for HGT1/ subdirectories containing *_HGT_statistics1.txt files (previously enriched with GC content by add_gc_nonhgt.py).
+# Scans each FMT sample folder for HGT/ subdirectories containing *_HGT_statistics1.txt files (previously enriched with GC content by add_gc_nonhgt.py).
 # Parses each HGT record to extract: recipient contig, donor contig, their species assignments, homology rate, and region length.
-# Groups individual gene records into HGT events defined by unique (recipient_contig_base, donor_contig_base) pairs. For each event, it counts the number of genes, records the species and homology rate, and stores the source file.
-# Retrieves pre‑FMT recipient mapping from the corresponding *_blast_recipient.txt file (stored in blast_results/) to obtain the pre‑transplant contig alignment for the recipient region.
+# Groups individual gene records into HGT events defined by unique (recipient_contig_base, donor_contig_base) pairs. For each event, it counts the number of genes, records the
+# species and homology rate, and stores the source file. Retrieves pre‑FMT recipient (a matching region (for non-HGT region)) mapping from the corresponding *_blast_recipient.txt file (stored in blast_results/) to obtain
+# the pre‑transplant contig alignment for the recipient region.
 # Calculates a Judgment value (0 or 1) based on:
-# Whether the HGT region lies at either edge of the recipient contig (start=1 or end=full length).
-# If the pre‑FMT recipient shows a matching region at the same edge → Judgment = 0 (likely represents a native region, not true HGT), otherwise Judgment = 1 (potential genuine HGT).
+# Whether the HGT region lies at either edge of the recipient contig.
+# If the corresponding pre‑FMT recipient contigs shows an aligned region (for non-HGT region) at the same edging direction (e.g. left edge direction or right edge direction)
+# → Judgment = 0 (likely represents a native region, having risks of being not true HGT),
+# representing that the so-called HGT may be derived due to insufficient sequencing coverage or metagenomic assembly coverage
+# otherwise Judgment = 1 (HGT region doesn't lie at either edge of the post-FMT recipient contig (in central region of a contig), or
+# HGT lie at either edge of the post-FMT recipient contig with non-aligned region in pre-FMT recipient contig demonstrating the insertion of new sequences, 
+# these are regarded as potential genuine HGT).
 # Filters events retaining only those with Judgment = 1.
 # Outputs an Excel workbook (HGT_event_details111111.xlsx) with one sheet per FMT sample (including a summary total row) and an overall sheet. Columns include event identifiers, pre‑recipient mapping, donor base, judgment, region length, homology rate, gene count, species, and source file.
 # Thus, this script serves as the final curation step that removes likely false‑positive HGT calls
