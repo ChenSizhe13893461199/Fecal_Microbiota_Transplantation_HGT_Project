@@ -197,10 +197,18 @@ for i in "${!pre_samples[@]}"; do
     source activate base 
 done
 
-#quality control steps
+# quality control steps
 mkdir result
 
-#1st round of quality control
+# 1st round of quality control
+# The qc_annotation.py script is a post‑processing quality control step in the HGT (Horizontal Gene Transfer) detection pipeline. 
+# Its main function is to integrate information from multiple intermediate files and generate a structured summary
+# table for each sample pair (Donor/Post‑FMT). Specifically, it has the following functions:
+# 1) Parses eggnog‑mapper annotations (.emapper.annotations) to retrieve gene descriptions, COG categories, taxonomic assignments, and genomic coordinates
+# 2) for each predicted gene in the recipient’s HGT‑candidate region. Reads donor BLAST results (donor_contig1.txt) to extract high‑scoring segment pairs (HSPs)
+# between donor and recipient contigs.
+# 3) Calculates GC content for both the HGT region (from *_aligned.fasta) and the original donor contig (from donor_contig fasta file).
+# 4) Matches each gene to the overlapping HSP on the donor side, extracting alignment identity (rate) and alignment length
 python qc_annotation.py 
 mkdir -p final
 source activate kraken2
