@@ -273,7 +273,10 @@ python add_gc_nonhgt.py
 source activate base
 mkdir filter
 
-# The filterchecking.py script performs a final quality‑control and filtering step on the HGT results. It:
+#To further confirm the factuality of those detected HGT regions, the recipient- and donor-source context were extracted and independently
+# aligned against standard reference microbial genome database. Only those cases with HGT regions and non-HGT loci phylogenetically assigned
+# to divergent species were retained to implement final round checking, with filtered cases as bona fide HGT events
+# The filterchecking.py script performs a quality‑control and filtering step on the HGT results. It:
 # Reads all *_HGT_statistics.txt files located under the final/ directory.
 # For each record, extracts the simplified species name (genus + species level) from the full taxonomic description of both the recipient (post‑FMT) and the donor contig.
 # Removes entries where: Recipient and donor species are identical (removal of potential translocation event or false-positives). Either species is identifiedas human (Homo sapiens).
@@ -281,7 +284,3 @@ mkdir filter
 # Thus, filterchecking.py ensures that the final HGT list contains only genuine cross‑species transfer events between different microbial taxa
 # excluding self‑matches and human contamination
 python filterchecking.py
-
-#To further confirm the factuality of those detected HGT regions, the recipient- and donor-source context were extracted and independently
-# aligned against standard reference microbial genome database. Only those cases with HGT regions and non-HGT loci phylogenetically assigned
-# to divergent species were retained to implement final round checking, with filtered cases as bona fide HGT events
