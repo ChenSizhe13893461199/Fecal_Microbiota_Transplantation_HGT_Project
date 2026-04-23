@@ -117,10 +117,13 @@ for i in "${!pre_samples[@]}"; do
     }
 
     # The following script "blastn_process.py" was used to generate summary of alignment, 
-    # in which -t (e.g. 0.9 represents at least 90% of full length) controls the filtering threshold for the ratio of alignment length
+    # in which -t (e.g. 0.9 represents at least 90.0% of full length) controls the filtering threshold for the ratio of alignment length
+    
     python blastn_process.py -i "${RESULTS_DIR}/${post}_blast_donor.txt" -o "${RESULTS_DIR}/${post}_gt_donor_results.txt" -t 0.9 
-    # reserve those post-FMT contigs with at least 90% alignment (identity ≥ 99.0%， e-value ≤ 10^(-10))
+    #find those post-FMT contigs with at least 90.0% alignment coverage (identity ≥ 99.0%， e-value ≤ 10^(-10)) to donor contigs
+    
     python blastn_process.py -i "${RESULTS_DIR}/${post}_blast_recipient.txt" -o "${RESULTS_DIR}/${post}_gt_recipient_results.txt" -t 0.9
+    #find those post-FMT contigs with at least 90.0% alignment coverage (identity ≥ 99.0%， e-value ≤ 10^(-10)) to recipient contigs
 
     python classifer.py -i "$post_fasta" "${RESULTS_DIR}/${post}_gt_donor_results.txt" "${RESULTS_DIR}/${post}_gt_recipient_results.txt" -o "${RESULTS_DIR}/${donor}_contigs.fasta" "${RESULTS_DIR}/${post}_contigs.fasta" "${RESULTS_DIR}/${donor}_${post}_contigs.fasta" -s 100
     rm "${RESULTS_DIR}/${post}_blast_donor.txt"
