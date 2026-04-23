@@ -284,3 +284,18 @@ mkdir filter
 # Thus, filterchecking.py ensures that the final HGT list contains only genuine cross‑species transfer events between different microbial taxa
 # excluding self‑matches and human contamination
 python filterchecking.py
+
+# The provided Python script aggregates and filters horizontal gene transfer (HGT) events across multiple FMT (fecal microbiota transplantation) samples. Its main functions are:
+# Scans each FMT sample folder for HGT1/ subdirectories containing *_HGT_statistics1.txt files (previously enriched with GC content by add_gc_nonhgt.py).
+# Parses each HGT record to extract: recipient contig, donor contig, their species assignments, homology rate, and region length.
+# Groups individual gene records into HGT events defined by unique (recipient_contig_base, donor_contig_base) pairs. For each event, it counts the number of genes, records the species and homology rate, and stores the source file.
+# Retrieves pre‑FMT recipient mapping from the corresponding *_blast_recipient.txt file (stored in blast_results/) to obtain the pre‑transplant contig alignment for the recipient region.
+# Calculates a Judgment value (0 or 1) based on:
+# Whether the HGT region lies at either edge of the recipient contig (start=1 or end=full length).
+# If the pre‑FMT recipient shows a matching region at the same edge → Judgment = 0 (likely represents a native region, not true HGT), otherwise Judgment = 1 (potential genuine HGT).
+# Filters events retaining only those with Judgment = 1.
+# Outputs an Excel workbook (HGT_event_details111111.xlsx) with one sheet per FMT sample (including a summary total row) and an overall sheet. Columns include event identifiers, pre‑recipient mapping, donor base, judgment, region length, homology rate, gene count, species, and source file.
+# Thus, this script serves as the final curation step that removes likely false‑positive HGT calls
+# (events that may represent edge regions not well covered by 2nd generation
+# sequencing or assembly technologies) and produces a clean, aggregated table of validated HGT events for downstream statistical analysis
+python homologous_rate_adding.py
