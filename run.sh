@@ -209,6 +209,9 @@ mkdir result
 # between donor and recipient contigs.
 # 3) Calculates GC content for both the HGT region (from *_aligned.fasta) and the original donor contig (from donor_contig fasta file).
 # 4) Matches each gene to the overlapping HSP on the donor side, extracting alignment identity (rate) and alignment length
+# 5) Generates a tab‑separated output file (result/{post}_HGT_full.txt) containing, for every validated gene: GC content of the HGT region and of the donor contig
+# Gene description, COG category, taxonomic species, Recipient gene identifier and donor contig with coordinates, BLAST identity and alignment length
+
 python qc_annotation.py 
 mkdir -p final
 source activate kraken2
