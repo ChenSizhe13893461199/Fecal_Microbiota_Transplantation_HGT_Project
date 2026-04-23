@@ -126,8 +126,10 @@ for i in "${!pre_samples[@]}"; do
     #find those post-FMT contigs with at least 90.0% alignment coverage (identity ≥ 99.0%， e-value ≤ 10^(-10)) to recipient contigs
 
     python classifer.py -i "$post_fasta" "${RESULTS_DIR}/${post}_gt_donor_results.txt" "${RESULTS_DIR}/${post}_gt_recipient_results.txt" -o "${RESULTS_DIR}/${donor}_contigs.fasta" "${RESULTS_DIR}/${post}_contigs.fasta" "${RESULTS_DIR}/${donor}_${post}_contigs.fasta" -s 100
-    #using the two .txt file generated above to classify contigs (among contigs in post-FMT recipients) from donor, from pre-FMT recipient, both, and others.
-    
+    #using the two .txt file generated above to classify contigs (among contigs in post-FMT recipients) from donor, from pre-FMT recipient, both (from donor and pre-FMT recipient), 
+    #and others (not specified in output code above, classifer.py will generate 4 files including the others (suspected contigs may contain HGT region)).
+
+    #removing some redundnat files
     rm "${RESULTS_DIR}/${post}_blast_donor.txt"
     rm "${RESULTS_DIR}/${post}_blast_recipient.txt"
     rm "${RESULTS_DIR}/${post}_gt_donor_results.txt"
@@ -141,7 +143,7 @@ for i in "${!pre_samples[@]}"; do
     rm "${RESULTS_DIR}/${donor}_${post}_contigs_other_donor_info.txt"
     rm "${RESULTS_DIR}/${donor}_${post}_contigs_other_recipient_info.txt"
 
-    
+    # The following codes start to do the 2nd round of sequence alignment between others (suspected contigs may contain HGT region) and pre-FMT recipient (database construction)
     #export BLASTDB="${BLAST_DB_DIR}:${BLASTDB}"
     blastn -query "${RESULTS_DIR}/${donor}_${post}_contigs_other.fasta" \
            -db "$recipient_db" \
@@ -151,7 +153,7 @@ for i in "${!pre_samples[@]}"; do
         echo "warning：Post-FMT2 BLAST failed！"
     }
 
-
+    # The following codes start to do the 2nd round of sequence alignment between others (suspected contigs may contain HGT region) and donor (database construction)
     #export BLASTDB="${BLAST_DB_DIR}:${BLASTDB}"
     blastn -query "${RESULTS_DIR}/${donor}_${post}_contigs_other.fasta" \
            -db "$donor_db" \
