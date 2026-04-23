@@ -214,14 +214,11 @@ mkdir result
 
 python qc_annotation.py
 
-
-
-
 # create the directory
 mkdir -p final
 
 # quality control for microbial divergent source searching
-source activate kraken2
+source activate kraken2 # please use your own environment name for utilization
 ./convert.sh
 ./add_species_script.sh
 ./root.sh
