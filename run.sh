@@ -126,6 +126,8 @@ for i in "${!pre_samples[@]}"; do
     #find those post-FMT contigs with at least 90.0% alignment coverage (identity ≥ 99.0%， e-value ≤ 10^(-10)) to recipient contigs
 
     python classifer.py -i "$post_fasta" "${RESULTS_DIR}/${post}_gt_donor_results.txt" "${RESULTS_DIR}/${post}_gt_recipient_results.txt" -o "${RESULTS_DIR}/${donor}_contigs.fasta" "${RESULTS_DIR}/${post}_contigs.fasta" "${RESULTS_DIR}/${donor}_${post}_contigs.fasta" -s 100
+    #using the two .txt file generated above to classify contigs (among contigs in post-FMT recipients) from donor, from pre-FMT recipient, both, and others.
+    
     rm "${RESULTS_DIR}/${post}_blast_donor.txt"
     rm "${RESULTS_DIR}/${post}_blast_recipient.txt"
     rm "${RESULTS_DIR}/${post}_gt_donor_results.txt"
