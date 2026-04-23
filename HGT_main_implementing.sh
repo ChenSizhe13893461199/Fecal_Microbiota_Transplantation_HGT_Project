@@ -285,7 +285,7 @@ mkdir filter
 # excluding self‑matches and human contamination
 python filterchecking.py
 
-# The provided Python script aggregates and filters horizontal gene transfer (HGT) events across multiple FMT (fecal microbiota transplantation) samples. Its main functions are:
+# The provided Python script aggregates and filters HGT events across multiple FMT (fecal microbiota transplantation) samples. Its main functions include the following parts
 # Scans each FMT sample folder for HGT/ subdirectories containing *_HGT_statistics1.txt files (previously enriched with GC content by add_gc_nonhgt.py).
 # Parses each HGT record to extract: recipient contig, donor contig, their species assignments, homology rate, and region length.
 # Groups individual gene records into HGT events defined by unique (recipient_contig_base, donor_contig_base) pairs. For each event, it counts the number of genes, records the
@@ -295,13 +295,15 @@ python filterchecking.py
 # Whether the HGT region lies at either edge of the recipient contig.
 # If the corresponding pre‑FMT recipient contigs shows an aligned region (for non-HGT region) at the same edging direction (e.g. left edge direction or right edge direction)
 # → Judgment = 0 (likely represents a native region, having risks of being not true HGT),
-# representing that the so-called HGT may be derived due to insufficient sequencing coverage or metagenomic assembly coverage
+# representing that the so-called HGT maybe generate due to insufficient sequencing coverage or metagenomic assembly coverage.
 # otherwise Judgment = 1 (HGT region doesn't lie at either edge of the post-FMT recipient contig (in central region of a contig), or
-# HGT lie at either edge of the post-FMT recipient contig with non-aligned region in pre-FMT recipient contig demonstrating the insertion of new sequences, 
+# HGT lies at either edge of the post-FMT recipient contig with non-aligned region in the same edging direction of the corresponding pre-FMT
+# recipient contig, demonstrating the insertion of new sequences.
 # these are regarded as potential genuine HGT).
 # Filters events retaining only those with Judgment = 1.
-# Outputs an Excel workbook (HGT_event_details111111.xlsx) with one sheet per FMT sample (including a summary total row) and an overall sheet. Columns include event identifiers, pre‑recipient mapping, donor base, judgment, region length, homology rate, gene count, species, and source file.
+# Outputs an Excel workbook (.xlsx format).
+# Columns include event identifiers, pre‑recipient mapping, donor base, judgment, region length, homology rate, gene count, species, and source file.
 # Thus, this script serves as the final curation step that removes likely false‑positive HGT calls
 # (events that may represent edge regions not well covered by 2nd generation
-# sequencing or assembly technologies) and produces a clean, aggregated table of validated HGT events for downstream statistical analysis
+# sequencing or assembly technologies) and produces a clean, aggregated table of validated HGT events for downstream statistical analysis.
 python homologous_rate_adding.py
