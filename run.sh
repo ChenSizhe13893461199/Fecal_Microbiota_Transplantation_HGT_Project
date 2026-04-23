@@ -200,7 +200,7 @@ done
 #quality control steps
 mkdir result
 
-
+#1st round of quality control
 python qc_annotation.py 
 mkdir -p final
 source activate kraken2
