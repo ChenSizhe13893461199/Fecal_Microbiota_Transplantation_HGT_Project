@@ -3,10 +3,11 @@
 """
 qc_annotation.py
 
-根据 HGT 分析结果整合信息，为每个基因匹配对应的 BLAST HSP（来自 donor_contig1.txt），
-生成包含 GC 含量、基因注释、比对坐标的完整表格。
+Integrates HGT analysis results by matching each predicted gene with its corresponding BLAST HSP
+(from donor_contig1.txt). Generates a complete table containing GC content, gene annotations,
+and alignment coordinates.
 
-用法（直接运行，无需参数）：
+Usage (run directly, no arguments):
     python qc_annotation.py
 """
 
