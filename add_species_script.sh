@@ -58,50 +58,51 @@ for i in "${!pre_samples[@]}"; do
         continue
     fi
     if [ ! -f "$recipient_fasta" ]; then
-        echo "警告：recipient FASTA 文件 $recipient_fasta 不存在，跳过该样本"
+        echo "Warning: recipient FASTA $recipient_fasta not found, skipping"
         continue
     fi
     if [ ! -f "$donor_fasta" ]; then
-        echo "警告：donor FASTA 文件 $donor_fasta 不存在，跳过该样本"
+        echo "Warning: donor FASTA $donor_fasta not found, skipping"
         continue
     fi
 
-    # 提取唯一的recipient contig基本名（去掉坐标和基因编号）
-    echo "提取recipient contig名称列表..."
+    # Extract unique recipient contig base names (strip coordinates and gene number)
+    # Remove the trailing "_start-end_geneNum" to get the base contig identifier.
+    echo "Extracting recipient contig names..."
     tail -n +2 "$hgt_file" | cut -f6 | sed 's/_[0-9]*-[0-9]*_[0-9]*$//' | sort -u > "result/${post}_recipient_names.txt"
-    # 提取唯一的donor contig基本名（去掉坐标）
-    echo "提取donor contig名称列表..."
+    # Extract unique donor contig base names (strip coordinates)
+    # Remove the trailing "_start-end" to get the base contig identifier.
+    echo "Extracting donor contig names..."
     tail -n +2 "$hgt_file" | cut -f7 | sed 's/_[0-9]*-[0-9]*$//' | sort -u > "result/${donor}_donor_names.txt"
 
-    # 检查列表是否为空
+    # Skip if either name list is empty
     if [ ! -s "result/${post}_recipient_names.txt" ]; then
-        echo "警告：recipient名称列表为空，跳过该样本"
+        echo "Warning: recipient name list empty, skipping sample"
         continue
     fi
     if [ ! -s "result/${donor}_donor_names.txt" ]; then
-        echo "警告：donor名称列表为空，跳过该样本"
+        echo "Warning: recipient name list empty, skipping sample"
         continue
     fi
 
-    # 对recipient FASTA运行kraken2
-    echo "对recipient contig运行kraken2..."
+    # Run Kraken2 on the recipient contigs to assign taxonomic IDs
     kraken2 --db "$KRAKEN2_DB" --threads 4 \
         --output "result/${post}_recipient.kraken" \
         --report "result/${post}_recipient.report" \
         "$recipient_fasta" || {
-        echo "kraken2运行失败，跳过该样本"
+        echo "running failed, skipping sample"
         continue
     }
 
-    # 提取taxID
+    # Extract the taxonomic ID
     cut -f3 "result/${post}_recipient.kraken" > "result/${post}_recipient.taxids"
-    # 用taxonkit获取物种名（取最后一个分号后的部分）
+    # Extract the taxonomic ID (third column) from Kraken2 output
     echo "对recipient taxID进行物种注释..."
     taxonkit lineage "result/${post}_recipient.taxids" --data-dir "$TAXKIT_DATA" 2>/dev/null | \
         awk -F'\t' '{split($2,a,";"); print $1"\t"a[length(a)]}' > "result/${post}_recipient.species.map"
 
     # 对donor FASTA运行kraken2
-    echo "对donor contig运行kraken2..."
+    echo "Annotating recipient taxIDs with species names..."
     kraken2 --db "$KRAKEN2_DB" --threads 4 \
         --output "result/${donor}_donor.kraken" \
         --report "result/${donor}_donor.report" \
