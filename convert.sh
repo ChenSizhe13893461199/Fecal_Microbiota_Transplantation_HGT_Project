@@ -1,7 +1,7 @@
 #!/bin/bash
 # add_species.sh
-# 用途：为 HGT_full.txt 中的 donor 和 recipient contig 添加 Kraken2 物种注释
-# 使用方式：./add_species.sh
+# Purpose: Extract recipient (pre-FMT) and donor contig sequences for species annotation.
+# usage：./add_species.sh
 
 # 设置路径（请根据实际情况修改）
 KRAKEN2_DB="kracken2/"
