@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
+"""
+HGT.py – Extract contigs that align to both recipient and donor with specific coverage and identity thresholds.
 
+This script identifies candidate horizontal gene transfer (HGT) contigs from an "other" category of contigs
+(those not uniquely assigned to donor or recipient) by requiring:
+    1. High-identity alignment to the recipient (pre-FMT) covering at least a user-defined fraction of the contig.
+    2. A high-quality alignment to the donor that does NOT overlap the recipient-aligned regions.
+It outputs full contig sequences, aligned regions, and BLAST records for downstream annotation.
+"""
 import argparse
 import os
 from collections import defaultdict
@@ -12,15 +20,15 @@ def parse_blast(blast_file, min_pident=None):
             parts = line.strip().split('\t')
             if len(parts) < 12:
                 continue
-            qseqid = parts[0]
-            sseqid = parts[1]
-            pident = float(parts[2])
-            length = int(parts[3])
-            qstart = int(parts[6])
-            qend = int(parts[7])
-            sstart = int(parts[8])
-            send = int(parts[9])
-            evalue = float(parts[10])
+            qseqid = parts[0]               # query sequence ID
+            sseqid = parts[1]               # subject (database) sequence ID
+            pident = float(parts[2])        # percent identity
+            length = int(parts[3])          # alignment length
+            qstart = int(parts[6])          # query start (1-based)
+            qend = int(parts[7])            # query end
+            sstart = int(parts[8])          # subject start
+            send = int(parts[9])            # subject end
+            evalue = float(parts[10])       # e-value
             if min_pident is not None and pident < min_pident:
                 continue
             hits[qseqid].append((sseqid, pident, length, qstart, qend, sstart, send, line))
@@ -34,8 +42,9 @@ def merge_intervals(intervals):
     if not intervals:
         return []
     intervals.sort()
-    merged = [list(intervals[0])]
+    merged = [list(intervals[0])]              # start with the first interval
     for start, end in intervals[1:]:
+                                               # If current interval starts <= previous end+1, they overlap or touch → merge
         if start <= merged[-1][1] + 1:  # allow touching
             merged[-1][1] = max(merged[-1][1], end)
         else:
