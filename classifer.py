@@ -21,6 +21,7 @@ def read_blast_records(blast_file):
             line = line.strip()
             if not line:
                 continue
+            # The first column is the query ID
             query = line.split('\t')[0]
             records.setdefault(query, []).append(line)
     return records
@@ -29,13 +30,13 @@ def write_fasta_and_info(fasta_path, info_path, seq_records, blast_dict):
     """Write FASTA file and corresponding info file (blast lines for each query)."""
     with open(fasta_path, 'w') as f:
         SeqIO.write(seq_records, f, 'fasta')
-
+    # Collect all BLAST lines for the provided sequence records
     info_lines = []
     for rec in seq_records:
         qid = rec.id
         if qid in blast_dict:
             info_lines.extend(blast_dict[qid])
-
+    # Write the info file
     with open(info_path, 'w') as f:
         for line in info_lines:
             f.write(line + '\n')
