@@ -1,0 +1,64 @@
+#!/bin/bash
+# merge_names.sh: 合并 contig 名称与物种名
+
+# 设置数据库路径（如不需要可忽略）
+INPUT_XLSX="FMT_list.xlsx"
+if [ ! -f "$INPUT_XLSX" ]; then
+    echo "错误：输入文件 $INPUT_XLSX 不存在！"
+    exit 1
+fi
+
+# 提取样本列表
+python3 - <<END
+import pandas as pd
+df = pd.read_excel("$INPUT_XLSX", engine='openpyxl')
+pre_list = df['Pre-FMT'].dropna().astype(str).tolist()
+donor_list = df['Donor'].dropna().astype(str).tolist()
+post_list = df['Post-FMT'].dropna().astype(str).tolist()
+with open('temp_pre.txt', 'w') as f: f.write('\n'.join(pre_list))
+with open('temp_donor.txt', 'w') as f: f.write('\n'.join(donor_list))
+with open('temp_post.txt', 'w') as f: f.write('\n'.join(post_list))
+END
+
+pre_samples=($(cat temp_pre.txt))
+donor_samples=($(cat temp_donor.txt))
+post_samples=($(cat temp_post.txt))
+rm -f temp_*.txt
+
+if [ ${#pre_samples[@]} -ne ${#donor_samples[@]} ] || [ ${#pre_samples[@]} -ne ${#post_samples[@]} ]; then
+    echo "错误：样本数量不一致！"
+    exit 1
+fi
+
+for i in "${!pre_samples[@]}"; do
+    post="${post_samples[i]}"
+    donor="${donor_samples[i]}"
+    echo "处理样本: $post (Donor: $donor)"
+
+    # 定义文件路径
+    donor_names="result/${donor}_donor_names.txt"
+    donor_species_map="result/${donor}_donor.species.map"
+    donor_out="result/${donor}_name.txt"
+
+    post_names="result/${post}_recipient_names.txt"
+    post_species_map="result/${post}_recipient.species.map"
+    post_out="result/${post}_name.txt"
+
+    # 合并 donor
+    if [ -f "$donor_names" ] && [ -f "$donor_species_map" ]; then
+        paste "$donor_names" "$donor_species_map" | awk -F'\t' '{print $1"\t"$3}' > "$donor_out"
+        echo "  生成 $donor_out"
+    else
+        echo "  警告：donor 文件缺失，跳过"
+    fi
+
+    # 合并 recipient
+    if [ -f "$post_names" ] && [ -f "$post_species_map" ]; then
+        paste "$post_names" "$post_species_map" | awk -F'\t' '{print $1"\t"$3}' > "$post_out"
+        echo "  生成 $post_out"
+    else
+        echo "  警告：recipient 文件缺失，跳过"
+    fi
+done
+
+echo "所有样本处理完毕！"
