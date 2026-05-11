@@ -28,6 +28,6 @@ For inferring HGT from donor microbes to recipient microbes, all suspected HGT c
 
 ![](framework1.png)
 
-The flanking loci of each HGT regions were further checked to ensure that the homologous segments were not false-positives due to insufficient coverage of sequencing or genome assembly. To further confirm the factuality of those detected HGT regions, the recipient- and donor-source context were extracted and independently aligned against standard reference microbial genome database. Only those cases with HGT regions and non-HGT loci phylogenetically assigned to divergent species were retained to implement final round checking, with filtered cases as bona fide HGT events. Simultaneously, we implemented similar approaches for inferring HGT from recipient microbes to engrafted donor microbes.
+The flanking loci of each HGT regions were further checked to ensure that the homologous segments were not false-positives due to insufficient coverage of sequencing or genome assembly. To further confirm the factuality of those detected HGT regions, the recipient- and donor-source context were extracted and independently aligned against standard reference microbial genome database. Only those cases with HGT regions and non-HGT loci phylogenetically assigned to divergent species were retained to implement final round checking, with filtered cases as bona fide HGT events. Simultaneously, we implemented similar approaches for inferring HGT from recipient microbes to the engrafted donor microbes.
+
 ## Usage and Examples
-1
