@@ -196,7 +196,7 @@ def main():
         pre = str(row['Pre-FMT'])
         donor = str(row['Donor'])
         post = str(row['Post-FMT'])
-        print(f"处理样本 {post} (Donor: {donor})...")
+        print(f"Processing sample {post} (Donor: {donor})...")
 
         # 定义文件路径
         ann_file = f"HGT/{post}_donor_HGT.emapper.annotations"
