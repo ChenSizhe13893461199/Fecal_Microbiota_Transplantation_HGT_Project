@@ -43,12 +43,12 @@ def parse_emapper_annotations(filepath):
             parts = line.strip().split('\t')
             if len(parts) < 8:
                 continue
-            query = parts[0]          # e.g. "A|B|recipient:start-end_geneNum"
+            query = parts[0]           
             max_annot_lvl = parts[5]   # Taxonomic_Species
             cog_category = parts[6]     # Module_Classification
             description = parts[7]      # Gene_Description
 
-            # 解析 query 格式：recipient_contig|donor_contig|recipient:start-end_geneNum
+            # Parse query format: recipient_contig|donor_contig|recipient:start-end_geneNum
             seg = query.split('|')
             if len(seg) != 3:
                 continue
@@ -61,7 +61,7 @@ def parse_emapper_annotations(filepath):
             if '_' not in coord_gene:
                 continue
             coord, gene_num = coord_gene.rsplit('_', 1)  # coord = 3105-5606, gene_num = 1
-            # 解析坐标
+            # Parse coordinates
             if '-' not in coord:
                 continue
             start_str, end_str = coord.split('-')
