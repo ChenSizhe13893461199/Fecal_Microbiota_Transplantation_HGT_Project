@@ -74,12 +74,13 @@ def main():
     min_cov = args.min_recipient_cov
 
     # Output file names
-    post_contig_fasta = f"{post}_contig.fasta"
-    post_aligned_fasta = f"{post}_aligned.fasta"
-    post_info_txt = f"{post}_contig1.txt"
-    donor_contig_fasta = f"{donor}_contig.fasta"
-    donor_aligned_fasta = f"{donor}_aligned.fasta"
-    donor_info_txt = f"{donor}_contig1.txt"
+    # Define output file names (all will be written in the current working directory)
+    post_contig_fasta = f"{post}_contig.fasta"        # Full sequences of selected recipient contigs
+    post_aligned_fasta = f"{post}_aligned.fasta"      # Recipient-side HGT regions only
+    post_info_txt = f"{post}_contig1.txt"             # BLAST lines (recipient hits) for selected contigs
+    donor_contig_fasta = f"{donor}_contig.fasta"      # Full donor contigs that participated in HGT
+    donor_aligned_fasta = f"{donor}_aligned.fasta"    # Donor-side HGT regions only
+    donor_info_txt = f"{donor}_contig1.txt"           # BLAST lines (donor hits) for selected contigs
 
     # Read other contigs
     contigs = {rec.id: rec for rec in SeqIO.parse(args.other_fasta, 'fasta')}
