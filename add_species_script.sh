@@ -40,20 +40,21 @@ if [ ${#pre_samples[@]} -ne ${#donor_samples[@]} ] || [ ${#pre_samples[@]} -ne $
     exit 1
 fi
 
+# Create output directory for the annotated tables
 mkdir -p final
 
 for i in "${!pre_samples[@]}"; do
     post="${post_samples[i]}"
     donor="${donor_samples[i]}"
     echo "========================================="
-    echo "处理样本: $post (Donor: $donor)"
+    echo "Processing sample: $post (Donor: $donor)"
 
-    hgt_file="result/${post}_HGT_full.txt"
-    recipient_fasta="result/${post}_HGT_recipient_contig.fasta"
-    donor_fasta="result/${donor}_HGT_donor_contig.fasta"
+    hgt_file="result/${post}_HGT_full.txt"                          # HGT candidate table
+    recipient_fasta="result/${post}_HGT_recipient_contig.fasta"     # Recipient contigs (from convert.sh)
+    donor_fasta="result/${donor}_HGT_donor_contig.fasta"            # Donor contigs (from convert.sh)
 
     if [ ! -f "$hgt_file" ]; then
-        echo "警告：$hgt_file 不存在，跳过该样本"
+        echo "Warning: $hgt_file not found, skipping this sample"
         continue
     fi
     if [ ! -f "$recipient_fasta" ]; then
