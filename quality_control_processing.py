@@ -337,13 +337,13 @@ def main():
             total_events = len(df)
             total_genes = df['Gene_Count'].sum()
             total_row = pd.DataFrame([{
-                "Recipient_Base": "总计",
+                "Recipient_Base": "Total",
                 "Pre_Recipient": "",
                 "Donor_Base": "",
                 "Judgment": "",
                 "Region_Length": "",
                 "Homologous_Rate": "",
-                "Gene_Count": f"{total_genes} (共{total_events}个事件)",
+                "Gene_Count": f"{total_genes} ({total_events}events)",
                 "Recipient_Species": "",
                 "Donor_Species": "",
                 "File": ""
