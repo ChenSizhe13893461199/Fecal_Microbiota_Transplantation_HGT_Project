@@ -18,5 +18,8 @@ seqtk (optional, for faster FASTA extraction)
 
 Standard Unix tools: awk, sed, sort, paste, mkdir
 
+## Core pipeline framework
+
 ## Usage and Examples
 1
+
