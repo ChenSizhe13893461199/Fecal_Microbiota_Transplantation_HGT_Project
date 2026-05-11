@@ -122,7 +122,7 @@ def main():
         contig_len = len(contig.seq)
         coverage = total_covered / contig_len
 
-        # Check recipient coverage threshold
+        # Step 4: Check recipient coverage threshold (user-defined)
         if coverage < min_cov:
             continue
 
