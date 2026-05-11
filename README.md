@@ -18,16 +18,5 @@ seqtk (optional, for faster FASTA extraction)
 
 Standard Unix tools: awk, sed, sort, paste, mkdir
 
-Conda Environments (recommended)
-bash
-# Create environment for main pipeline
-conda create -n hgt_pipeline python=3.9 pandas openpyxl biopython blast prodigal
-conda activate hgt_pipeline
-
-# For eggnog‑mapper (separate environment recommended)
-conda create -n eggnog -c bioconda eggnog-mapper
-conda activate eggnog
-
-# For Kraken2 (separate environment)
-conda create -n kraken2 -c bioconda kraken2 taxonkit
-conda activate kraken2
+## Usage and Examples
+1
