@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-"""
-HGT.py – Extract contigs that align to both recipient and donor with specific coverage and identity thresholds.
-"""
 
 import argparse
 import os
@@ -9,9 +6,6 @@ from collections import defaultdict
 from Bio import SeqIO
 
 def parse_blast(blast_file, min_pident=None):
-    """
-    Parse BLAST outfmt6 file, return dict: query -> list of (subject, pident, length, qstart, qend, sstart, send, line)
-    """
     hits = defaultdict(list)
     with open(blast_file) as f:
         for line in f:
