@@ -21,7 +21,5 @@ Standard Unix tools: awk, sed, sort, paste, mkdir
 ## Core Framework of the Pipeline
 
 ![](framework.png)
-
+![](framework1.png)
 ## Usage and Examples
-1
-
