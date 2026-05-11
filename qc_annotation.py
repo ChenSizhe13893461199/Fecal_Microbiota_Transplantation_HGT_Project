@@ -70,11 +70,11 @@ def parse_emapper_annotations(filepath):
                 rec_end = int(end_str)
             except ValueError:
                 continue
-            # 确保 rec_start <= rec_end 用于区间判断
+            # Ensure rec_start <= rec_end for interval operations
             if rec_start > rec_end:
                 rec_start, rec_end = rec_end, rec_start
 
-            # 构建 recipient_gene_id
+            # Build recipient_gene_id
             recipient_gene_id = f"{rec_contig}_{coord}_{gene_num}"
             # 构建 region_id (用于匹配 aligned.fasta)
             region_id = f"{rec_contig}|{don_contig}|recipient:{coord}"
