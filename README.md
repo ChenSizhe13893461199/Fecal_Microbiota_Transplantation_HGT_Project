@@ -4,7 +4,7 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 ## Requirements
 ### System Dependencies
-Python 3.8+ with packages: pandas, openpyxl, biopython
+Python 3.9+ with packages: pandas, openpyxl, biopython
 
 BLAST+ (makeblastdb, blastn)
 
@@ -17,3 +17,17 @@ Kraken2 and Taxonkit (species assignment)
 seqtk (optional, for faster FASTA extraction)
 
 Standard Unix tools: awk, sed, sort, paste, mkdir
+
+Conda Environments (recommended)
+bash
+# Create environment for main pipeline
+conda create -n hgt_pipeline python=3.9 pandas openpyxl biopython blast prodigal
+conda activate hgt_pipeline
+
+# For eggnog‑mapper (separate environment recommended)
+conda create -n eggnog -c bioconda eggnog-mapper
+conda activate eggnog
+
+# For Kraken2 (separate environment)
+conda create -n kraken2 -c bioconda kraken2 taxonkit
+conda activate kraken2
