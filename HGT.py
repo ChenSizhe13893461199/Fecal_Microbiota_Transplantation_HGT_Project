@@ -88,8 +88,8 @@ def main():
     donor_seqs = {rec.id: rec for rec in SeqIO.parse(args.donor_fasta, 'fasta')}
 
     # Parse BLAST hits
-    recip_hits = parse_blast(args.recipient_blast, min_pident=95.0)
-    donor_hits = parse_blast(args.donor_blast, min_pident=95.0)
+    recip_hits = parse_blast(args.recipient_blast, min_pident=99.0)
+    donor_hits = parse_blast(args.donor_blast, min_pident=99.0)
 
     # Prepare output collections
     selected_queries = set()
@@ -98,8 +98,10 @@ def main():
     donor_contig_ids = set()          # unique donor subjects to output complete sequences
     post_info_lines = []              # for post_info.txt
     donor_info_lines = []             # for donor_info.txt
-
+    
+    # Main loop: evaluate each "other" contig
     for qid, contig in contigs.items():
+        # ----- Step 1: Must have at least one hit to recipient -----
         if qid not in recip_hits:
             continue
         # ----- Recipient coverage calculation (pident >= 99) -----
