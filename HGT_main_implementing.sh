@@ -308,4 +308,4 @@ python filterchecking.py
 # Thus, this script serves as the final curation step that removes likely false‑positive HGT calls
 # (events that may represent edge regions not well covered by 2nd generation
 # sequencing or assembly technologies) and produces a clean, aggregated table of validated HGT events for downstream statistical analysis.
-python homologous_rate_adding.py
+python quality_control_processing.py
