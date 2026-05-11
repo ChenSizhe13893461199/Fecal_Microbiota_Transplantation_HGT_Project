@@ -5,9 +5,15 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 ## Requirements
 ### System Dependencies
 Python 3.8+ with packages: pandas, openpyxl, biopython
+
 BLAST+ (makeblastdb, blastn)
+
 Prodigal (gene prediction)
+
 eggNOG‑mapper (emapper.py) and its diamond dependency
+
 Kraken2 and Taxonkit (species assignment)
+
 seqtk (optional, for faster FASTA extraction)
+
 Standard Unix tools: awk, sed, sort, paste, mkdir
