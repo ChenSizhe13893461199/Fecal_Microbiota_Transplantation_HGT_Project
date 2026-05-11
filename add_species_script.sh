@@ -96,8 +96,8 @@ for i in "${!pre_samples[@]}"; do
 
     # Extract the taxonomic ID
     cut -f3 "result/${post}_recipient.kraken" > "result/${post}_recipient.taxids"
-    # Extract the taxonomic ID (third column) from Kraken2 output
-    echo "对recipient taxID进行物种注释..."
+    # Extract the taxonomic ID
+    echo "Annotating recipient taxIDs with species names..."
     taxonkit lineage "result/${post}_recipient.taxids" --data-dir "$TAXKIT_DATA" 2>/dev/null | \
         awk -F'\t' '{split($2,a,";"); print $1"\t"a[length(a)]}' > "result/${post}_recipient.species.map"
 
@@ -107,16 +107,16 @@ for i in "${!pre_samples[@]}"; do
         --output "result/${donor}_donor.kraken" \
         --report "result/${donor}_donor.report" \
         "$donor_fasta" || {
-        echo "kraken2运行失败，跳过该样本"
+        echo "running failed, skipping sample"
         continue
     }
 
     cut -f3 "result/${donor}_donor.kraken" > "result/${donor}_donor.taxids"
-    echo "对donor taxID进行物种注释..."
+    echo "Annotating donor taxIDs with species names..."
     taxonkit lineage "result/${donor}_donor.taxids" --data-dir "$TAXKIT_DATA" 2>/dev/null | \
         awk -F'\t' '{split($2,a,";"); print $1"\t"a[length(a)]}' > "result/${donor}_donor.species.map"
 
-    # 构建关联数组
+    # Build associative arrays for quick species lookup by contig base name
     declare -A recipient_sp
     declare -A donor_sp
     while IFS=$'\t' read -r seqid species; do
@@ -126,30 +126,30 @@ for i in "${!pre_samples[@]}"; do
         donor_sp["$seqid"]="$species"
     done < "result/${donor}_donor.species.map"
 
-    # 处理HGT_full.txt，追加两列
+    # Merge species information into the HGT table
     outfile="final/${post}_HGT_full.txt"
-    # 写入表头
+    # Write the header line with two additional columns at the end
     echo -e "GC_HGT\tGC_origin\tGene_Description\tModule_Classification\tTaxonomic_Species\tRecipient_Contig\tDonor_Contig\trate\tlength\trecipient_species\tdonor_species" > "$outfile"
 
-    # 逐行处理
+    # Process each data line (skip header)
     tail -n +2 "$hgt_file" | while IFS=$'\t' read -r gc_hgt gc_origin desc mod_class tax_spec rec_contig don_contig rate length _; do
-        # 提取基本名
+        # Extract base contig names (same extraction as before)
         rec_base=$(echo "$rec_contig" | sed 's/_[0-9]*-[0-9]*_[0-9]*$//')
         don_base=$(echo "$don_contig" | sed 's/_[0-9]*-[0-9]*$//')
-        # 获取物种名（如果没有则留空）
+        # Look up species; default to empty string if not found
         rec_species="${recipient_sp[$rec_base]:-}"
         don_species="${donor_sp[$don_base]:-}"
-        # 输出
+        # Append the two species columns and write the complete line
         echo -e "${gc_hgt}\t${gc_origin}\t${desc}\t${mod_class}\t${tax_spec}\t${rec_contig}\t${don_contig}\t${rate}\t${length}\t${rec_species}\t${don_species}"
     done >> "$outfile"
 
-    echo "完成：$outfile"
+    echo "Completed: $outfile"
 
-    # 清理临时文件
+    # Cleanup temporary files (commented out by default; uncomment if desired)
     #rm -f "result/${post}_recipient.kraken" "result/${post}_recipient.taxids" "result/${post}_recipient.species.map" \
           #"result/${donor}_donor.kraken" "result/${donor}_donor.taxids" "result/${donor}_donor.species.map" \
           #"result/${post}_recipient_names.txt" "result/${donor}_donor_names.txt" \
           #"result/${post}_recipient.report" "result/${donor}_donor.report"
 done
 
-echo "所有样本处理完毕！"
+echo "All samples processed successfully!"
