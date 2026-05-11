@@ -7,7 +7,7 @@
 # Input Excel file containing sample triples (Pre-FMT, Donor, Post-FMT)
 INPUT_XLSX="FMT_list.xlsx"
 if [ ! -f "$INPUT_XLSX" ]; then
-    echo "错误：输入文件 $INPUT_XLSX 不存在！"
+    echo "Error: Input file $INPUT_XLSX does not exist!"
     exit 1
 fi
 
@@ -29,16 +29,16 @@ post_samples=($(cat temp_post.txt))
 rm -f temp_*.txt
 
 if [ ${#pre_samples[@]} -ne ${#donor_samples[@]} ] || [ ${#pre_samples[@]} -ne ${#post_samples[@]} ]; then
-    echo "错误：样本数量不一致！"
+    echo "Error: Input file $INPUT_XLSX does not exist!"
     exit 1
 fi
-
+# Main loop: process each sample pair (Post-FMT and Donor)
 for i in "${!pre_samples[@]}"; do
     post="${post_samples[i]}"
     donor="${donor_samples[i]}"
-    echo "处理样本: $post (Donor: $donor)"
+    echo "Processing sample: $post (Donor: $donor)"
 
-    # 定义文件路径
+    # Define input and output file paths
     donor_names="result/${donor}_donor_names.txt"
     donor_species_map="result/${donor}_donor.species.map"
     donor_out="result/${donor}_name.txt"
@@ -47,21 +47,21 @@ for i in "${!pre_samples[@]}"; do
     post_species_map="result/${post}_recipient.species.map"
     post_out="result/${post}_name.txt"
 
-    # 合并 donor
+     # Merge donor files if both exist
     if [ -f "$donor_names" ] && [ -f "$donor_species_map" ]; then
         paste "$donor_names" "$donor_species_map" | awk -F'\t' '{print $1"\t"$3}' > "$donor_out"
-        echo "  生成 $donor_out"
+        echo "Generated $donor_out"
     else
-        echo "  警告：donor 文件缺失，跳过"
+        echo "Warning: donor files missing, skipping"
     fi
 
-    # 合并 recipient
+    # Merge recipient (post) files if both exist
     if [ -f "$post_names" ] && [ -f "$post_species_map" ]; then
         paste "$post_names" "$post_species_map" | awk -F'\t' '{print $1"\t"$3}' > "$post_out"
-        echo "  生成 $post_out"
+        echo "Generated $post_out"
     else
-        echo "  警告：recipient 文件缺失，跳过"
+        echo "Warning: recipient files missing, skipping"
     fi
 done
 
-echo "所有样本处理完毕！"
+echo "All samples processed successfully!"
