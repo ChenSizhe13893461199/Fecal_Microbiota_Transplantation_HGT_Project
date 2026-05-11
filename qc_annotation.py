@@ -121,7 +121,7 @@ def parse_contig1_blast(filepath):
                 send = int(parts[9])
             except ValueError:
                 continue
-            # 排序 query 区间用于重叠判断
+           # Sort query interval for overlap detection
             qmin = min(qstart, qend)
             qmax = max(qstart, qend)
 
@@ -140,7 +140,7 @@ def parse_contig1_blast(filepath):
 
 
 def parse_fasta(filepath):
-    """解析 fasta 文件，返回 {header: sequence}"""
+    """Parse a FASTA file, return dictionary {header: sequence}."""
     seqs = {}
     if not os.path.exists(filepath) or os.path.getsize(filepath) == 0:
         return seqs
@@ -163,7 +163,7 @@ def parse_fasta(filepath):
 
 
 def gc_content(seq):
-    """计算 DNA 序列的 GC 含量（百分比）"""
+    """Calculate GC content (percentage) of a DNA sequence."""
     seq = seq.upper()
     g = seq.count('G')
     c = seq.count('C')
@@ -172,22 +172,22 @@ def gc_content(seq):
 
 
 def intervals_overlap(start1, end1, start2, end2):
-    """判断两个闭区间是否重叠（假设 start <= end）"""
+    """Check whether two closed intervals overlap (assumes start <= end)."""
     return max(start1, start2) <= min(end1, end2)
 
 
-# ---------- 主程序 ----------
+# ---------- Main program ----------
 def main():
     excel_file = "FMT_list.xlsx"
     if not os.path.exists(excel_file):
-        print(f"错误：找不到 {excel_file}")
+        print(f"Error: {excel_file} not found.")
         sys.exit(1)
 
     df = pd.read_excel(excel_file, engine='openpyxl')
     required_cols = ['Pre-FMT', 'Donor', 'Post-FMT']
     for col in required_cols:
         if col not in df.columns:
-            print(f"错误：Excel 文件中缺少列 '{col}'")
+            print(f"Error: Excel file missing column '{col}'")
             sys.exit(1)
 
     os.makedirs("result", exist_ok=True)
