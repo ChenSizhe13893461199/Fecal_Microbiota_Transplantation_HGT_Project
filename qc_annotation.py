@@ -90,15 +90,16 @@ def parse_emapper_annotations(filepath):
 
 def parse_contig1_blast(filepath):
     """
-    解析 donor_contig1.txt（BLAST outfmt 6 格式），
-    按 (recipient_contig, donor_contig) 分组存储每个 HSP 的详细信息。
-    返回字典：
-        {(rec_contig, don_contig): list_of_dict}
-        每个 dict 包含：
-            'qstart': int, 'qend': int,         # 原始顺序
-            'sstart': int, 'send': int,          # 原始顺序
-            'qmin': int, 'qmax': int,            # 排序后的 query 区间（用于重叠判断）
-            'rate': str, 'length': str
+    Parse donor_contig1.txt (BLAST outfmt 6 format).
+    Group HSP details by (recipient_contig, donor_contig).
+
+    Returns:
+        dict: {(rec_contig, don_contig): list_of_dict}
+              Each dict contains:
+                  'qstart': int, 'qend': int,         # raw order
+                  'sstart': int, 'send': int,          # raw order
+                  'qmin': int, 'qmax': int,            # sorted query interval (for overlap checks)
+                  'rate': str, 'length': str
     """
     mapping = {}
     if not os.path.exists(filepath) or os.path.getsize(filepath) == 0:
