@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Modified version: keeps all alignments meeting:
+It keeps all alignments meeting:
     alignment_length / min(query_len, subject_len) >= threshold
     pident >= 99.0
     evalue <= 1e-10
@@ -39,11 +39,11 @@ def main():
 
     filtered_lines = []
     for index, row in blast_results.iterrows():
-        query = str(row[0])
-        subject = str(row[1])
-        pident = float(row[2])
-        length = float(row[3])
-        evalue = float(row[10])
+        query = str(row[0])           # query sequence ID
+        subject = str(row[1])         # subject (database) sequence ID
+        pident = float(row[2])        # percent identity
+        length = float(row[3])        # alignment length
+        evalue = float(row[10])       # e-value
 
         q_len = extract_length(query)
         s_len = extract_length(subject)
