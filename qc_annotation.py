@@ -76,7 +76,7 @@ def parse_emapper_annotations(filepath):
 
             # Build recipient_gene_id
             recipient_gene_id = f"{rec_contig}_{coord}_{gene_num}"
-            # 构建 region_id (用于匹配 aligned.fasta)
+            # Build region_id (used to match aligned.fasta)
             region_id = f"{rec_contig}|{don_contig}|recipient:{coord}"
 
             gene_info[recipient_gene_id] = (description, cog_category, max_annot_lvl)
