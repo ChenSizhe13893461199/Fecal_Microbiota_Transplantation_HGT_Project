@@ -44,9 +44,10 @@ def main():
         pident = float(row[2])        # percent identity
         length = float(row[3])        # alignment length
         evalue = float(row[10])       # e-value
-
+        # Retrieve the full lengths of query and subject from their IDs
         q_len = extract_length(query)
         s_len = extract_length(subject)
+        # Skip if length extraction failed for either sequence
         if q_len == 0.0 or s_len == 0.0:
             # Skip if length extraction failed
             continue
@@ -56,7 +57,8 @@ def main():
 
         if alignment_ratio >= threshold and pident >= 99.0 and evalue <= 1e-10:
             filtered_lines.append(row)
-
+    
+    # Write all passing alignments to the output file (tab-separated)
     with open(args.output, "w") as f:
         for row in filtered_lines:
             f.write("\t".join(map(str, row)) + "\n")
