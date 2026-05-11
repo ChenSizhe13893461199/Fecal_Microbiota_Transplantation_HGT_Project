@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Enhanced version: 
+Function: 
 - Automatically finds original BLAST files (by replacing '_gt_' with '_blast_')
 - For "other" contigs, generates two separate info files using original BLAST data
 - Preserves original outputs for donor/recipient/both categories
