@@ -134,11 +134,14 @@ def main():
         if qid not in donor_hits:
             continue
         donor_good = False
+
+        # ----- Step 6: Evaluate donor hits for satisfying HGT criteria -----
         for hit in donor_hits[qid]:
             sseqid, pident, length, qs, qe, ss, se, evalue, line = hit
             if pident >= 99.0 and length > 500 and evalue <= 1e-10:
-                # Check if this donor interval overlaps any recipient interval
+                # Strict filters for donor side: ≥99% identity, alignment length >500 bp, e-value ≤1e-10
                 if not intervals_overlap((qs, qe), merged_recip):
+                    # Crucial: the donor-aligned region must NOT overlap any recipient-aligned region
                     donor_good = True
                     # Collect donor info line
                     donor_info_lines.append(line)
@@ -155,12 +158,12 @@ def main():
                     qsubseq = contig.seq[qstart-1:qend]
                     desc2 = f"{qid}|{sseqid}|recipient:{qstart}-{qend}"
                     post_aligned_records.append(SeqIO.SeqRecord(qsubseq, id=desc2, description=""))
-
+        # Step 7: If all conditions satisfied, add the contig to the final set
         if donor_good:
             selected_queries.add(qid)
 
     # ----- Write output files -----
-    # 1. post_contig.fasta (full query sequences)
+    # 1. Write full sequences of selected recipient contigs
     with open(post_contig_fasta, 'w') as f:
         for qid in selected_queries:
             SeqIO.write(contigs[qid], f, 'fasta')
