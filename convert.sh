@@ -3,15 +3,15 @@
 # Purpose: Extract recipient (pre-FMT) and donor contig sequences for species annotation.
 # usage：./add_species.sh
 
-# 设置路径（请根据实际情况修改）
+# Path to Kraken2 database (not used directly in this script, kept for consistency)
 KRAKEN2_DB="kracken2/"
 TAXKIT_DATA="tax/"
 TRIMMED_DIR="FMT_HGT"          # 原始过滤 fasta 所在目录
 
-# 输入 Excel 文件
+# Input Excel file listing sample triples (Pre-FMT, Donor, Post-FMT)
 INPUT_XLSX="FMT_list.xlsx"
 
-# 检查必要工具
+# Helper function: Check required tools
 check_tool() {
     local tools=("python3" "kraken2" "taxonkit")
     for tool in "${tools[@]}"; do
