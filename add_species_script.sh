@@ -1,22 +1,24 @@
 #!/bin/bash
-# add_species.sh - 为 HGT 结果添加 recipient 和 donor 的物种信息
+# add_species.sh - Add recipient and donor species information to HGT results
 
-# 设置数据库路径（请根据实际情况修改）
+# Configuration
+# Path to Kraken2 database (modify according to your setup)
 KRAKEN2_DB="kracken2/"
+# Path to Taxonkit data directory (contains taxonomy files) (modify according to your setup)
 TAXKIT_DATA="tax/"
 
-# 检查必要工具
-command -v kraken2 >/dev/null 2>&1 || { echo "错误：未找到 kraken2"; exit 1; }
-command -v taxonkit >/dev/null 2>&1 || { echo "错误：未找到 taxonkit"; exit 1; }
+# Check required tools
+command -v kraken2 >/dev/null 2>&1 || { echo "Error: kraken2 not found"; exit 1; }
+command -v taxonkit >/dev/null 2>&1 || { echo "Error: taxonkit not found"; exit 1; }
 
-# 读取样本列表
+# Read sample list from Excel file
 INPUT_XLSX="FMT_list.xlsx"
 if [ ! -f "$INPUT_XLSX" ]; then
-    echo "错误：输入文件 $INPUT_XLSX 不存在！"
+    echo "Error: Input file $INPUT_XLSX does not exist!"
     exit 1
 fi
 
-# 提取样本列表
+# Extract sample names using a Python one‑liner
 python3 - <<END
 import pandas as pd
 df = pd.read_excel("$INPUT_XLSX", engine='openpyxl')
@@ -34,7 +36,7 @@ post_samples=($(cat temp_post.txt))
 rm -f temp_*.txt
 
 if [ ${#pre_samples[@]} -ne ${#donor_samples[@]} ] || [ ${#pre_samples[@]} -ne ${#post_samples[@]} ]; then
-    echo "错误：样本数量不一致！"
+    echo "Error: Sample count mismatch!"
     exit 1
 fi
 
