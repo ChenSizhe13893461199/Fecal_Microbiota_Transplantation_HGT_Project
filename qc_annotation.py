@@ -15,14 +15,15 @@ import pandas as pd
 import os
 import sys
 
-# ---------- 解析函数 ----------
+# ---------- Parsing functions ----------
 def parse_emapper_annotations(filepath):
     """
-    解析 eggnog-mapper 的 .annotations 文件。
-    返回五个字典：
+    Parse an eggnog-mapper .annotations file.
+
+    Returns five dictionaries:
         - gene_info: {recipient_gene_id: (description, cog_category, max_annot_lvl)}
         - gene_to_region: {recipient_gene_id: region_id}
-        - gene_coords: {recipient_gene_id: (rec_start, rec_end)}   # 排序后的坐标
+        - gene_coords: {recipient_gene_id: (rec_start, rec_end)}   # sorted coordinates
         - gene_contigs: {recipient_gene_id: (rec_contig, don_contig)}
         - region_to_genes: {region_id: list_of_recipient_gene_ids}
     """
