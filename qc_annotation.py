@@ -152,7 +152,7 @@ def parse_fasta(filepath):
             if line.startswith('>'):
                 if cur_id:
                     seqs[cur_id] = ''.join(cur_seq)
-                cur_id = line[1:]   # 去掉 '>'
+                cur_id = line[1:]   
                 cur_seq = []
             else:
                 if line:
@@ -198,48 +198,48 @@ def main():
         post = str(row['Post-FMT'])
         print(f"Processing sample {post} (Donor: {donor})...")
 
-        # 定义文件路径
+        # Define file paths
         ann_file = f"HGT/{post}_donor_HGT.emapper.annotations"
         aligned_fasta = f"HGT/{post}_aligned.fasta"
-        # 使用 donor 的 contig1 文件（包含 recipient vs donor 的 HSP）
+        # donor-side BLAST (recipient vs donor)
         contig1_file = f"HGT/{donor}_contig1.txt"
         donor_contig_fasta = f"HGT/{donor}_contig.fasta"
 
-        # 检查必需文件
+        # Check required files exist
         if not os.path.exists(ann_file):
-            print(f"  警告：注释文件 {ann_file} 不存在，跳过该样本")
+            print(f"Warning: annotation file {ann_file} missing, skipping sample")
             continue
         if not os.path.exists(aligned_fasta):
-            print(f"  警告：HGT 区域序列文件 {aligned_fasta} 不存在，跳过该样本")
+            print(f"Warning: HGT region FASTA {aligned_fasta} missing, skipping sample")
             continue
         if not os.path.exists(contig1_file):
-            print(f"  警告：donor contig1 文件 {contig1_file} 不存在，跳过该样本")
+            print(f"Warning: donor contig1 file {contig1_file} missing, skipping sample")
             continue
         if not os.path.exists(donor_contig_fasta):
-            print(f"  警告：donor contig fasta 文件 {donor_contig_fasta} 不存在，跳过该样本")
+            print(f"Warning: donor contig FASTA {donor_contig_fasta} missing, skipping sample")
             continue
 
-        # 1. 解析注释
+        # 1. Parse eggnog-mapper annotations
         gene_info, gene_to_region, gene_coords, gene_contigs, region_to_genes = parse_emapper_annotations(ann_file)
         if not gene_info:
             print(f"  警告：注释文件解析失败或无有效数据，跳过该样本")
             continue
 
-        # 2. 解析 donor contig1 BLAST 文件
+        # 2. Parse donor contig1 BLAST file (HSPs)
         blast_hsps = parse_contig1_blast(contig1_file)
         if not blast_hsps:
             print(f"  警告：donor contig1 文件解析失败或无有效数据，跳过该样本")
             continue
 
-        # 3. 解析 aligned.fasta
+        # 3. Parse aligned.fasta (recipient HGT regions)
         region_seqs = parse_fasta(aligned_fasta)
         region_gc = {rid: gc_content(seq) for rid, seq in region_seqs.items()}
 
-        # 4. 解析 donor_contig.fasta
+        # 4. Parse donor_contig.fasta (full donor sequences)
         donor_seqs = parse_fasta(donor_contig_fasta)
         donor_gc = {contig: gc_content(seq) for contig, seq in donor_seqs.items()}
 
-        # 5. 为每个基因组装输出行
+        # 5. Assemble output rows for each gene
         output_rows = []
         for gene_id, (desc, cog_cat, max_lvl) in gene_info.items():
             rec_contig, don_contig = gene_contigs.get(gene_id, ("", ""))
@@ -254,7 +254,7 @@ def main():
             gc_hgt_val = region_gc.get(region_id, 0.0)
             gc_origin_val = donor_gc.get(don_contig, 0.0)
 
-            # 在 donor contig1 的 HSP 中查找与基因重叠的 HSP
+            # Find an HSP in donor_contig1 that overlaps the gene's coordinates
             key = (rec_contig, don_contig)
             hsps = blast_hsps.get(key, [])
             matched_hsp = None
@@ -267,7 +267,7 @@ def main():
                 print(f"    警告：基因 {gene_id} 在 {contig1_file} 中找不到与之重叠的 HSP，跳过")
                 continue
 
-            # 构建 donor 侧坐标字符串（保留原始顺序）
+            # Build donor-side coordinate string (preserving original order)
             donor_coord_str = f"{matched_hsp['sstart']}-{matched_hsp['send']}"
             donor_contig_full = f"{don_contig}_{donor_coord_str}"
 
@@ -296,9 +296,9 @@ def main():
                 for r in output_rows:
                     line = '\t'.join(str(r[col]) for col in header)
                     f.write(line + '\n')
-            print(f"  已生成结果文件：{out_file}，共 {len(output_rows)} 条记录")
+            print(f"Generated result file：{out_file}，共 {len(output_rows)} 条记录")
         else:
-            print(f"  警告：没有有效的输出行，跳过样本 {post}")
+            print(f"Warning: no valid output rows for sample {post}, skipping")
 
 if __name__ == "__main__":
     main()
