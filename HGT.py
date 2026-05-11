@@ -104,16 +104,19 @@ def main():
         # ----- Step 1: Must have at least one hit to recipient -----
         if qid not in recip_hits:
             continue
-        # ----- Recipient coverage calculation (pident >= 99) -----
+
+        # ----- Step 2: Collect recipient intervals with high identity (≥99.0%) -----
         recip_intervals = []
         for hit in recip_hits[qid]:
             _, pident, _, qs, qe, _, _, _, line = hit
             # pident already filtered, but double-check
-            if pident >= 99.0:
+            if pident >= 99.0:                 # only consider nearly identical matches
                 recip_intervals.append((qs, qe))
-                post_info_lines.append(line)   # collect all recipient lines for this contig (will be written if selected)
+                post_info_lines.append(line)   # store line for later output (only if contig is selected)
         if not recip_intervals:
             continue
+        
+        # Step 3: Merge overlapping/touching intervals and compute coverage
         merged_recip = merge_intervals(recip_intervals)
         total_covered = sum(e - s + 1 for s, e in merged_recip)
         contig_len = len(contig.seq)
