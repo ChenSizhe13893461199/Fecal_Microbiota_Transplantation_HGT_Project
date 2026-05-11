@@ -53,10 +53,10 @@ def intervals_overlap(interval, other_intervals):
 def main():
     parser = argparse.ArgumentParser(description='Extract HGT candidates from secondary BLAST results.')
     parser.add_argument('--other_fasta', required=True, help='FASTA file of other contigs (e.g., donor_post_contigs_other.fasta)')
-    parser.add_argument('--recipient_blast', required=True, help='BLAST output against recipient (e.g., LC037_blast_recipient1.txt)')
-    parser.add_argument('--donor_blast', required=True, help='BLAST output against donor (e.g., LC037_blast_donor1.txt)')
-    parser.add_argument('--donor_fasta', required=True, help='Donor original FASTA file (e.g., D29_PACS_1_filter.fasta)')
-    parser.add_argument('--output_prefix', nargs=2, required=True, help='Post sample name and donor sample name, e.g., LC037 D29_PACS_1')
+    parser.add_argument('--recipient_blast', required=True, help='BLAST output against recipient (e.g., XXX_blast_recipient1.txt)')
+    parser.add_argument('--donor_blast', required=True, help='BLAST output against donor (e.g., XXX_blast_donor1.txt)')
+    parser.add_argument('--donor_fasta', required=True, help='Donor original FASTA file (e.g., XXX_filter.fasta)')
+    parser.add_argument('--output_prefix', nargs=2, required=True, help='Post sample name and donor sample name, e.g., XXX XXX')
     parser.add_argument('--min_recipient_cov', type=float, default=0.5, 
                         help='Minimum coverage of recipient-homologous regions on the contig (fraction, default=0.5)')
     args = parser.parse_args()
