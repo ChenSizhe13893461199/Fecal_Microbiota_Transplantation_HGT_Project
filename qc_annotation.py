@@ -222,7 +222,7 @@ def main():
         # 1. Parse eggnog-mapper annotations
         gene_info, gene_to_region, gene_coords, gene_contigs, region_to_genes = parse_emapper_annotations(ann_file)
         if not gene_info:
-            print(f"  警告：注释文件解析失败或无有效数据，跳过该样本")
+            print(f"Warning: the annotation file fails to parse or there is no valid data, skip this sample")
             continue
 
         # 2. Parse donor contig1 BLAST file (HSPs)
