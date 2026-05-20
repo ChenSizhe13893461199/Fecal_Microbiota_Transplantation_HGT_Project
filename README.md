@@ -24,6 +24,3 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 To systematically identify HGT events driven by FMT, we developed HGTector, a computational framework that integrates metagenomic assembly, homology search, phylogenetic assignment, and functional annotation (as shown above). Briefly, raw metagenomic reads from donor and recipient (pre‑FMT and post‑FMT) samples were subjected to de-contamination and de novo metagenomic assembly, followed by rigorous quality control and decontamination to remove potential contaminants.
 ![](framework1.png)
-
-## Usage and Examples
-
