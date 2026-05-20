@@ -175,8 +175,8 @@ for i in "${!pre_samples[@]}"; do
         --donor_blast "${RESULTS_DIR}/${post}_blast_donor1.txt" \
         --donor_fasta "${TRIMMED_DIR}/${donor}_filter.fasta" \
         --output_prefix "$post" "$donor" --max_HGT_cov n 
-        #Threshold value n (users can indicate n). Higher n increases stringency (minimum recommended 0.5)
-        # e.g. if n=0.7, it means that HGT region can not exceed the 30% of full contig length
+        #Threshold value n (users can indicate n). Higher n increases stringency (minimum recommended value of n should exceed 0.5)
+        # e.g. if n=0.7, it means that HGT region can not exceed the 30% of full contig length; user can define the value of n.
     mkdir -p HGT
 
     # removing some redundnat files
