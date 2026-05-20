@@ -125,12 +125,12 @@ def main():
         # Step 4: Check recipient coverage threshold (user-defined)
         if coverage < min_cov:
             continue
-        # It ensures that the recipient-homologous region occupies at least X % of the contig, as subsequent codes searching for potential HGT regions with length (> 500, <（100-X）% of the contig)
+        # It ensures that the recipient-coverage region occupies at least X % of the contig, as subsequent codes searching for potential HGT regions with length (> 500, <（100-X）% of the contig)
         # balancing sensitivity (capturing genuine HGT insertions) and specificity (excluding donor-only contigs)
 
         
         # ----- Step 5: Must have at least one hit to donor -----
-        # ----- Donor check (pident >= 99, length > 500, evalue <= 1e-10, non-overlap) -----
+        # ----- Donor check (pident >= 99%, length > 500, evalue <= 1e-10, non-overlap) -----
         if qid not in donor_hits:
             continue
         donor_good = False
