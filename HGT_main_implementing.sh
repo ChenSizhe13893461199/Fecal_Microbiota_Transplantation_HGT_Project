@@ -176,7 +176,9 @@ for i in "${!pre_samples[@]}"; do
         --donor_fasta "${TRIMMED_DIR}/${donor}_filter.fasta" \
         --output_prefix "$post" "$donor" --max_HGT_cov n 
         #Threshold value n (users can indicate n). Higher n increases stringency (minimum recommended value of n should exceed 0.5)
-        # e.g. if n=0.7, it means that HGT region can not exceed the 30% of full contig length; user can define the value of n.
+        # (non-HGT) regions covers at least 70% of the full contig length; 
+        # the minimum value of n should exceed 0.5 to ensure that the flanking regions jointly constitute the majority (>50%) of the contig, thereby
+        # guaranteeing sufficient genomic context for reliable alignment and avoiding false positives caused by isolated HGT-like segments embedded within non-homologous regions)
     mkdir -p HGT
 
     # removing some redundnat files
