@@ -174,7 +174,7 @@ for i in "${!pre_samples[@]}"; do
         --recipient_blast "${RESULTS_DIR}/${post}_blast_recipient1.txt" \
         --donor_blast "${RESULTS_DIR}/${post}_blast_donor1.txt" \
         --donor_fasta "${TRIMMED_DIR}/${donor}_filter.fasta" \
-        --output_prefix "$post" "$donor" --max_HGT_cov n 
+        --output_prefix "$post" "$donor" --min_recipient_cov n 
         #Threshold value n (users can indicate n). Higher n increases stringency (minimum recommended value of n should exceed 0.5)
         # (non-HGT) regions covers at least 70% of the full contig length; 
         # the minimum value of n should exceed 0.5 to ensure that the flanking regions jointly constitute the majority (>50%) of the contig, thereby
