@@ -31,7 +31,7 @@ def parse_blast(blast_file, min_pident=None):
             evalue = float(parts[10])       # e-value
             if min_pident is not None and pident < min_pident:
                 continue
-            hits[qseqid].append((sseqid, pident, length, qstart, qend, sstart, send, line))
+            hits[qseqid].append((sseqid, pident, length, qstart, qend, sstart, send, evalue, line))
     return hits
 
 def merge_intervals(intervals):
