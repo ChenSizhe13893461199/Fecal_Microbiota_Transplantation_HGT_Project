@@ -47,7 +47,7 @@ def extract_pure_recipient_base(contig_str):
     return pure_base
 
 def extract_length_from_base(base_str):
-     """
+    """
     Extract the full contig length from a base identifier string.
 
     Example: "NODE_1550_length_9207_cov_4.840691" -> 9207
