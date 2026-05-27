@@ -27,4 +27,4 @@ To systematically identify HGT events driven by FMT, we developed HGTector, a co
 
 ### Notes: 
 
-when processing long-reads sequencing data, please revise ./root.sh in line 231 pf HGT_main_implementing.sh as ./root1.sh
+For user who attempt to process long-reads sequencing data by HGTector, please revise ./root.sh in line 231 pf HGT_main_implementing.sh as ./root1.sh
