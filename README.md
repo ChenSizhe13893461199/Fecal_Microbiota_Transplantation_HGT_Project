@@ -26,4 +26,8 @@ To systematically identify HGT events driven by FMT, we developed HGTector, a co
 ![](framework1.png)
 
 ### Notes: 
-For user who attempt to process long-reads sequencing data (e.g. PacBio type) by HGTector, please revise "./root.sh" in line 253 of HGT_main_implementing.sh as "./root1.sh".
+-Please appropriately assign the corresponding path of directory containing assembled FMT contig files (e.g. FMT_HGT, which contains pre-FMT recipient, post-FMT recipient, and Donor contig files and Orders), taxonomic database, and gene annotation reference database in the corresponding file (e.g. HGT_main_implementing.sh, qc_annotation.py, convert.sh, and etc.). Full details are available in annotations of each computational script;
+
+-For user who attempt to process long-reads sequencing data (e.g. PacBio type) by HGTector, please revise "./root.sh" in line 253 of HGT_main_implementing.sh as "./root1.sh";
+
+-Please feel free to contact us via Chen2422679942@163.com and we are willing to provide any necessary assistance for implementing HGTector.
