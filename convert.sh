@@ -103,7 +103,7 @@ for i in "${!pre_samples[@]}"; do
             echo "Warning: post contig $post_name has no mapping in $post_contig1. Skipping."
         fi
     done < "result/${post}_post_names.txt"
-    #sort -u "result/${post}_pre_names.txt" -o "result/${post}_pre_names.txt"
+    sort -u "result/${post}_pre_names.txt" -o "result/${post}_pre_names.txt"
 
     # Step 4: Extract actual nucleotide sequences for pre-FMT and donor contigs
     pre_fasta="${TRIMMED_DIR}/${pre}_filter.fasta"
