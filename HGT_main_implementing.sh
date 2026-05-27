@@ -188,7 +188,8 @@ for i in "${!pre_samples[@]}"; do
     mv "${donor}_contig.fasta" HGT/
     mv "${post}_contig1.txt" HGT/
     mv "${donor}_contig1.txt" HGT/
-
+    python process.py --input "HGT/${post}_contig1.txt" --output "HGT/${post}_contig1.txt"
+    python process.py --input "HGT/${donor}_contig1.txt" --output "HGT/${donor}_contig1.txt"
     mkdir output
     mkdir HGT
 
