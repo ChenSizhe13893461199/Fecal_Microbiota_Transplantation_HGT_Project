@@ -26,5 +26,4 @@ To systematically identify HGT events driven by FMT, we developed HGTector, a co
 ![](framework1.png)
 
 ### Notes: 
-
-For user who attempt to process long-reads sequencing data (e.g. PacBio type) by HGTector, please revise "./root.sh" in line 253 of HGT_main_implementing.sh as "./root1.sh"
+For user who attempt to process long-reads sequencing data (e.g. PacBio type) by HGTector, please revise "./root.sh" in line 253 of HGT_main_implementing.sh as "./root1.sh".
