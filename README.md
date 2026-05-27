@@ -32,4 +32,4 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 - For user who attempt to process long-reads sequencing data (e.g. PacBio type) by HGTector, please revise "./root.sh" in line 253 of HGT_main_implementing.sh as "./root1.sh";
 
-- Please feel free to contact us via Chen2422679942@163.com and we are willing to provide any necessary assistance for implementing HGTector.
+- Please feel free to contact us via Chen2422679942@163.com and we are willing to provide necessary assistance for implementing HGTector.
