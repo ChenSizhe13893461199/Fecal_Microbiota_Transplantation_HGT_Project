@@ -264,7 +264,7 @@ source activate kraken2 # please use your own environment name for utilization
 rm final/*_HGT_full.txt
 #rm -rf result/*
 rm -rf output/*_aligned.fasta.gbk
-
+mv final/*_HGT_statistics.txt .
 # The add_gc_nonhgt.py script computes the GC content of the non‑HGT regions (i.e., the parts of the contig not involved in the putative transfer) for both the recipient (post‑FMT) and the donor contig. It:
 # Parses the recipient’s {post}_aligned.fasta to obtain the HGT region coordinates on each recipient contig, and the donor’s {donor}_contig1.txt to obtain the HSP coordinates on the donor contig.
 # Reads the full‑length contig sequences from HGT/{post}_contig.fasta and HGT/{donor}_contig.fasta.
