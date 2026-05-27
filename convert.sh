@@ -1,7 +1,7 @@
 #!/bin/bash
-# add_species.sh
+# convert.sh
 # Purpose: Extract recipient (pre-FMT) and donor contig sequences for species annotation.
-# usage：./add_species.sh
+# usage：./convert.sh
 
 # Path to Kraken2 database (not used directly in this script, kept for consistency)
 KRAKEN2_DB="kracken2/"
