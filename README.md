@@ -77,4 +77,4 @@ Before utilization of HGTector, please pay attention to lines 170-173 in __HGT_m
 
 Then, please open scripts of __convert.sh__, and __add_species_script.sh__ to indicate the exact directory path for the aforementioned __"tax"__, and __"reference_data_base"__, so that these scripts can smoothly function as wished.
 
-Lastly, implement HGTector by inputting commands of __"nohup ./HGT_main_implementing.sh &"__, and the HGTector will automatically run.
+Lastly, implement HGTector by inputting commands of __"nohup ./HGT_main_implementing.sh &"__, and the HGTector pipeline will automatically start.
