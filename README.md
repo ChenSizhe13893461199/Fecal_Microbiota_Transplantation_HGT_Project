@@ -60,3 +60,5 @@ First, please make sure that all scripts in this GitHub inventory have been appr
 Here, the __"FMT_list.xlsx"__ contains FMT order information for HGTector to understanding the longitudinal information of each FMT sample (__preFMT__, __postFMT__, and __Donor__ refers to prefix of __preFMT_filter.fasta__, __postFMT_filter.fast__, and __Donor_filter.fasta__, respectively). The content of it is similar to the format shown below:
 
 ![](4.png)
+
+In next step, users can open the script of HGT_main_implementing.sh, in which 
