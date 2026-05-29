@@ -34,7 +34,7 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 - Please feel free to contact us via Chen2422679942@163.com (__Dr. CHEN Sizhe__) and we are willing to provide necessary assistance for implementing HGTector.
 
-### A Prelimnary Step-by-step Example
+### A Preliminary Step-by-step Example
 
 - In your initial path, you have 3 different directories named as __"FMT_HGT"__, __"tax"__, and __"reference_data_base"__, as shown below:
 
@@ -79,7 +79,7 @@ __HGT_main_implementing.sh__ is the script serves as the entry point and workflo
 
 - Lastly, implement HGTector by inputting commands of __"nohup ./HGT_main_implementing.sh &"__, and the HGTector pipeline will automatically start.
 
-  #### A Prelimnary Result Explanation
+  #### A Preliminary Result Explanation
 - After implementing HGTector, users will obtain a .xlsx table and seperate .txt report for each FMT under directory path "HGT1_filtered". The .xlsx table looks like the following format:
   
 ![](workflow7.png)
