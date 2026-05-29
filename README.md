@@ -56,3 +56,7 @@ After all basic files prepared as aforementioned, we can start to use HGTector d
 First, please make sure that all scripts in this GitHub inventory have been appropriately put in your current user directory path, like the following:
 
 ![](3.png)
+
+Here, the __"FMT_list.xlsx"__ contains FMT order information for HGTector to understanding the longitudinal information of each FMT sample. The content of it is similar to the format shown below:
+
+![](4.png)
