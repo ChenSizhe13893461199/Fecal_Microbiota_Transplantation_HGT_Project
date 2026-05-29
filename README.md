@@ -82,3 +82,6 @@ __HGT_main_implementing.sh__ is the script serves as the entry point and workflo
   #### A Prelimnary Result Explanation
 - After implementing HGTector, users will obtain a .xlsx table and seperate .txt report for each FMT under directory path "HGT1_filtered". The .xlsx table looks like the following format:
   
+![](workflow7.png)
+
+![](workflow8.png)
