@@ -38,3 +38,5 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 - In your initial path, you have 3 different directories named as __"FMT_HGT"__, __"tax"__, and __"reference_data_base"__, as shown below:
 
 ![](1.png)
+
+Metagenomic Assembled Files (pre-FMT recipient, post-FMT recipient, and Donor) are deposited in __"FMT_HGT"__, with phylogenetic annotation files contained in __"tax"__ and __"reference_data_base"__, respectively.
