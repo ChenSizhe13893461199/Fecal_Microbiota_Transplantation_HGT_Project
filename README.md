@@ -36,4 +36,5 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 ### A Prelimnary Step-by-step Example
 - In your initial path, you have 3 different directories named as "FMT_HGT", "tax", and "reference_data_base", as shown below:
+
 ![](1.png)
