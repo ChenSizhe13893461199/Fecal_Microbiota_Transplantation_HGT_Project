@@ -176,7 +176,7 @@ for i in "${!pre_samples[@]}"; do
         --donor_fasta "${TRIMMED_DIR}/${donor}_filter.fasta" \
         --output_prefix "$post" "$donor" --min_recipient_cov n 
         #Threshold value n (users can indicate n). Higher n increases stringency (minimum recommended value of n should exceed 0.5)
-        # (non-HGT) regions covers at least 70% of the full contig length; 
+        # (non-HGT) regions covers at least 70% of the full contig length if n = 0.7; 
         # the minimum value of n should exceed 0.5 to ensure that the flanking regions jointly constitute the majority (>50%) of the contig, thereby
         # guaranteeing sufficient genomic context for reliable alignment and avoiding false positives caused by isolated HGT-like segments embedded within non-homologous regions
     mkdir -p HGT
