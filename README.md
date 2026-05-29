@@ -61,4 +61,8 @@ Here, the __"FMT_list.xlsx"__ contains FMT order information for HGTector to und
 
 ![](4.png)
 
-In next step, users can open the script of HGT_main_implementing.sh, in which 
+In next step, users can open the script of HGT_main_implementing.sh, with lines 1-6 shows the corresponding directory for __"FMT_HGT"__, __"FMT_list.xlsx"__, and intermediate processing directory path (as shown below). Please define the appropriate path for any user-customized conditions. 
+
+![](5.png)
+
+
