@@ -74,3 +74,7 @@ __HGT_main_implementing.sh__ call modules or scripts of blastn, blastn_process.p
 Before utilization of HGTector, please pay attention to lines 170-173 in __HGT_main_implementing.sh__, and assign a user-customized parameter n to --min_recipient_cov. We have provided full information and reference regarding the selection of n in annotation part. In any kind of condition, n ≥ 0.5 (n < 1) should be maintained, with exact reasons available in the corresponding annottaion parts in scripts.
 
 ![](6.png)
+
+Then, please open scripts of __convert.sh__, and __add_species_script.sh__ to indicate the exact directory path for the aforementioned __"tax"__, and __"reference_data_base"__, so that these scripts can smoothly function as wished.
+
+Lastly, implement HGTector by inputting commands of "nohup ./HGT_main_implementing.sh &", and the HGTector will automatically run.
