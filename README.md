@@ -84,4 +84,34 @@ __HGT_main_implementing.sh__ is the script serves as the entry point and workflo
   
 ![](workflow7.png)
 
+- Recipient_Base
+The base identifier of the recipient contig (from the post‑FMT sample) that acquired the HGT region. It is derived by stripping coordinates and gene numbers from the full contig name. This column links the event to the specific contig in the recipient’s assembly.
+
+- Donor_Base
+The base identifier of the donor contig (from the donor sample, e.g., D10H_1) that is the source of the transferred DNA. It is obtained by removing the coordinate suffix from the donor contig name. This column indicates which donor sequence contributed the HGT fragment.
+
+- Pre_Recipient
+The pre‑FMT contig that best matches the recipient HGT region, extracted from the BLAST alignment between post‑FMT and pre‑FMT assemblies. This information is used in the judgment calculation to decide whether the HGT is a likely false positive.
+
+- Judgment
+A binary value (0 or 1) that flags whether the HGT event is likely genuine. Judgment = 1 means the event passes the edge‑based filter (i.e., the recipient HGT region is not at both edges with the same pre‑FMT match). Judgment = 0 suggests a probable false positive caused by conserved terminal regions.
+
+- Region_Length
+The length (in base pairs) of the HGT region on the recipient contig. It is calculated from the start and end coordinates of the predicted transferred segment. This value describes the size of the potential horizontally acquired fragment.
+
+- Homologous_Rate
+The percentage sequence identity between the recipient HGT region and its matched donor contig region, as reported by BLAST. It is usually very high (≥99%) in the pipeline. This column quantifies the similarity of the transferred DNA to the donor source.
+
+- Gene_Count
+The number of protein‑coding genes predicted within the HGT region on the recipient contig. It is aggregated from the eggNOG‑mapper annotations. This count reflects the functional complexity of the transferred segment.
+
+- Gene_Description
+The functional annotation of a single gene within the HGT region (e.g., “elongation factor G”). This description comes from the eggNOG‑mapper output. It provides biological insight into the potential role of the transferred genetic material.
+
+- Recipient_Species
+The taxonomic species assigned to the recipient contig (post‑FMT) by Kraken2, based on the extracted contig sequence. This column indicates the microbial species that harbours the HGT event in the post‑transplant sample.
+
+- Donor_Species
+The taxonomic species assigned to the donor contig by Kraken2. It identifies the source organism from which the HGT fragment originated. Comparing recipient and donor species allows filtering of intra‑species or human‑contaminated events
+
 ![](workflow8.png)
