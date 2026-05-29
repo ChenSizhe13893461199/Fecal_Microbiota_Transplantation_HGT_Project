@@ -116,4 +116,8 @@ The taxonomic species assigned to the recipient contig (post‑FMT), based on th
 - Donor_Species:
 The taxonomic species assigned to the donor contig. It identifies the source organism from which the HGT fragment originated.
 
+In addition, the .txt (report for each FMT) looks like the following format:
+
 ![](workflow8.png)
+
+The .txt result shown above indicate a high-confidence horizontal gene transfer event between two bacterial species: *Roseburia intestinalis* (HGt-acquiring) and *Anaerostipes hadrus* (HGT-delivery). The entire HGT region spans approximately 31 kb (length 31010) and contains nine predicted genes, with HGT region sharing 99.291% identity. The recipient and donor species are phylogenetically different, satisfying the key filtering criterion for a HGT event.
