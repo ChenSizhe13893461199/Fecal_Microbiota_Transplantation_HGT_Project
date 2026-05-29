@@ -65,10 +65,12 @@ In next step, users can open the script of __HGT_main_implementing.sh__ for more
 
 __HGT_main_implementing.sh__ is the script serves as the entry point and workflow manager for manipulating the entire HGTector.
 
-In this script, lines 1-6 shows the corresponding directory for __"FMT_HGT"__, __"FMT_list.xlsx"__, and intermediate processing directory path (as shown below). Please define the appropriate path for any user-customized conditions. 
+In this script, lines 1-6 shows the corresponding directory for __"FMT_HGT"__, __"FMT_list.xlsx"__, and intermediate processing directory path (as shown below). Please define the appropriate path for any user-customized conditions.
 
 ![](5.png)
 
-Furthermore,
+__HGT_main_implementing.sh__ call modules or scripts of blastn, blastn_process.py, classifer.py, HGT.py, prodigal, emapper.py, qc_annotation.py, convert.sh, add_species_script.sh, root.sh, fill_species.sh, add_gc_nonhgt.py, filterchecking.py, quality_control_processing.py, etc. Each of the script has unique functions and full annotations of these scripts have been available in the corresponding script and the appropriate loaction in __HGT_main_implementing.sh__.
+
+Before utilization of HGTector, please pay attention to lines 170-173 in __HGT_main_implementing.sh__, and assign a user-customized parameter n to --min_recipient_cov. We have provided full information and reference regarding the selection of n in annotation part. In any kind of condition, n ≥ 0.5 (n < 1) should be maintained, with exact reasons available in the corresponding annottaion parts in scripts.
 
 ![](6.png)
