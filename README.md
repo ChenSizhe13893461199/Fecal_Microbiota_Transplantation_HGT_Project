@@ -78,3 +78,7 @@ __HGT_main_implementing.sh__ is the script serves as the entry point and workflo
 - Then, please open scripts of __convert.sh__, and __add_species_script.sh__ to indicate the exact directory path for the aforementioned __"tax"__, and __"reference_data_base"__, so that these scripts can smoothly function as wished.
 
 - Lastly, implement HGTector by inputting commands of __"nohup ./HGT_main_implementing.sh &"__, and the HGTector pipeline will automatically start.
+
+  #### A Prelimnary Result Explanation
+- After implementing HGTector, users will obtain a .xlsx table and seperate .txt report for each FMT under directory path "HGT1_filtered". The .xlsx table looks like the following format:
+  
