@@ -54,3 +54,5 @@ The necessary components in __"reference_data_base"__ can be prepared by followi
 After all basic files prepared as aforementioned, we can start to use HGTector directly.
 
 First, please make sure that all scripts in this GitHub inventory have been appropriately put in your current user directory path, like the following:
+
+![](3.png)
