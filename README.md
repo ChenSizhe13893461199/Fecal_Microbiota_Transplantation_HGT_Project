@@ -84,6 +84,8 @@ __HGT_main_implementing.sh__ is the script serves as the entry point and workflo
   
 ![](workflow7.png)
 
+The exact meanings of each column have been provided below: 
+
 - Recipient_Base:
 The base identifier of the recipient contig (from the post‑FMT sample) that acquired the HGT region. This column links the event to the specific contig in the recipient’s assembly.
 
