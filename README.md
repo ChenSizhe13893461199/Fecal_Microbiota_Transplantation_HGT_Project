@@ -96,7 +96,7 @@ The base identifier of the donor contig (from the donor sample, e.g., D10H_1) th
 The pre‑FMT contig that best matches the recipient HGT region, extracted from the alignment between post‑FMT and pre‑FMT assemblies. This information is used in the judgment calculation to decide whether the HGT is a likely false positive.
 
 - Judgment:
-A binary value (0 or 1) that flags whether the HGT event is likely genuine. Judgment = 1 means the event passes the edge‑based filter (only those with value of 1 are reserved in .xlsx table).
+A binary value (0 or 1) that flags whether the HGT event is likely false-positive. In downstream parts of the HGTector, the flanking loci of each HGT regions were further checked to ensure that the homologous segments were not false-positives due to insufficient coverage of sequencing or genome assembly. Judgment = 1 means the event passes the edge‑based filter (only those with value of 1 are reserved in .xlsx table).
 
 - Region_Length:
 The length (in base pairs) of the HGT region on the recipient contig. It is calculated from the start and end coordinates of the transferred segment. This value describes the size of the potential horizontally acquired fragment.
@@ -120,4 +120,4 @@ In addition, the .txt (report for each FMT) looks like the following format:
 
 ![](workflow8.png)
 
-The .txt result shown above indicate a high-confidence horizontal gene transfer event between two bacterial species: *Roseburia intestinalis* (HGt-acquiring) and *Anaerostipes hadrus* (HGT-delivery). The entire HGT region spans approximately 31 kb (length 31010) and contains nine predicted genes, with HGT region sharing 99.291% identity. The recipient and donor species are phylogenetically different, satisfying the key filtering criterion for a HGT event.
+The .txt result shown above indicate a high-confidence horizontal gene transfer event between two bacterial species: *Roseburia intestinalis* (HGt-acquiring) and *Anaerostipes hadrus* (HGT-delivery). The entire HGT region spans approximately 31 kb (length 31010, __length__ column) and contains nine predicted genes, with HGT region sharing __99.291%__ identity (__rate__ column) (The column of __GC_nonHGT__ and __GC_HGT__ represent the GC content (percentage) of the HGT region and flanking non-HGT region on the HGT-acquiring contig. It differs by 44.95%-42.37%=2.58% GC content difference, suggesting that the HGT regions and background (non‑HGT) regions have distinct GC compositions). In addition, The recipient and donor species are phylogenetically different, satisfying the key filtering criterion for a HGT event.
