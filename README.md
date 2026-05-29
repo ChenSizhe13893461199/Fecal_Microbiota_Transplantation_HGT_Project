@@ -35,7 +35,8 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 - Please feel free to contact us via Chen2422679942@163.com and we are willing to provide necessary assistance for implementing HGTector.
 
 ### A Prelimnary Step-by-step Example
-- In your initial path, you have 3 different directories named as __"FMT_HGT"__, __"tax"__, and __"reference_data_base"__, as shown below:
+
+In your initial path, you have 3 different directories named as __"FMT_HGT"__, __"tax"__, and __"reference_data_base"__, as shown below:
 
 ![](1.png)
 
