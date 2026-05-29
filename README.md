@@ -66,3 +66,5 @@ In next step, users can open the script of __HGT_main_implementing.sh__, with li
 ![](5.png)
 
 Furthermore,
+
+![](6.png)
