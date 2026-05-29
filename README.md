@@ -50,3 +50,7 @@ In linux system, the necessary components in __"tax"__ can be downloaded via:
 - tar -zxvf taxdump.tar.gz
 
 The necessary components in __"reference_data_base"__ can be prepared by following the guideline at https://benlangmead.github.io/aws-indexes/k2
+
+After all basic files prepared as aforementioned, we can start to use HGTector directly.
+
+First, please make sure that all scripts in this GitHub inventory have been appropriately put in your current user directory path, like the following:
