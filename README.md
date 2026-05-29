@@ -30,6 +30,9 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 ### Notes: 
 - Please appropriately assign the corresponding path of directory containing assembled FMT contig files (e.g. pre-FMT recipient, post-FMT recipient, and Donor contig files), FMT metadata reference, taxonomic database, and gene annotation reference database in the corresponding file (e.g. HGT_main_implementing.sh, qc_annotation.py, convert.sh, and etc.). Full details are available in annotations of each computational script;
 
+### A Prelimnary Step-by-step Example
+
+
 - For user who attempt to process long-reads sequencing data (e.g. PacBio type) by HGTector, please revise "./root.sh" in line 253 of HGT_main_implementing.sh as "./root1.sh";
 
 - Please feel free to contact us via Chen2422679942@163.com and we are willing to provide necessary assistance for implementing HGTector.
