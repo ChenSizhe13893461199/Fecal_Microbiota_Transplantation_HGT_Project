@@ -43,3 +43,9 @@ Metagenomic Assembled Files (pre-FMT recipient, post-FMT recipient, and Donor) a
 
 ![](2.png)
 
+In linux system, the necessary components in __"tax"__ can be downloaded via:
+
+- wget -c https://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz
+- tar -zxvf taxdump.tar.gz
+
+The necessary components in __"reference_data_base"__ can be prepared by following the guideline at https://benlangmead.github.io/aws-indexes/k2
