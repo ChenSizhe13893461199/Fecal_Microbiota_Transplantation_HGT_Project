@@ -57,6 +57,6 @@ First, please make sure that all scripts in this GitHub inventory have been appr
 
 ![](3.png)
 
-Here, the __"FMT_list.xlsx"__ contains FMT order information for HGTector to understanding the longitudinal information of each FMT sample. The content of it is similar to the format shown below:
+Here, the __"FMT_list.xlsx"__ contains FMT order information for HGTector to understanding the longitudinal information of each FMT sample (refers to preFMT_filter.fasta, postFMT_filter.fasta, and Donor_filter.fasta, respectively). The content of it is similar to the format shown below:
 
 ![](4.png)
