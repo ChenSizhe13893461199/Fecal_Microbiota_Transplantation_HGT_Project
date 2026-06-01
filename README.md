@@ -18,6 +18,13 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 - Standard Unix tools: awk, sed, sort, paste, mkdir
 
+### Installation
+
+- git clone https://github.com/ChenSizhe13893461199/Fecal_Microbiota_Transplantation_HGT_Project.git
+- cd Fecal_Microbiota_Transplantation_HGT_Project
+- conda env create -f envs/environment.yml
+- conda activate HGTector
+
 ## Core Framework of the Pipeline
 
 ![](framework.png)
