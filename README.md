@@ -18,13 +18,6 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 - Standard Unix tools: awk, sed, sort, paste, mkdir
 
-### Installation
-
-- git clone https://github.com/ChenSizhe13893461199/Fecal_Microbiota_Transplantation_HGT_Project.git
-- cd Fecal_Microbiota_Transplantation_HGT_Project
-- conda env create -f envs/environment.yml
-- conda activate HGTector
-
 ## Core Framework of the Pipeline
 
 ![](framework.png)
@@ -132,3 +125,10 @@ In addition, the .txt (report for each FMT) looks like the following format:
 - The entire HGT region spans approximately 31 kb (length 31010, __length__ column) and contains nine predicted genes, with HGT region sharing __99.291%__ identity (__rate__ column) (The column of __GC_nonHGT__ and __GC_HGT__ represent the GC content (percentage) of the HGT region and flanking non-HGT region on the HGT-acquiring contig.
 
 - It differs by 44.95%-42.37%=2.58% GC content difference, suggesting that the HGT regions and background (non‑HGT) regions have distinct GC compositions). In addition, The recipient and donor species are phylogenetically different, satisfying the key filtering criterion for a HGT event.
+
+- ### Installation
+
+- git clone https://github.com/ChenSizhe13893461199/Fecal_Microbiota_Transplantation_HGT_Project.git
+- cd Fecal_Microbiota_Transplantation_HGT_Project
+- conda env create -f envs/environment.yml
+- conda activate HGTector
