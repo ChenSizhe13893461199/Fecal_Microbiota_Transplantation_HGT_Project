@@ -105,12 +105,12 @@ def main():
         if qid not in recip_hits:
             continue
 
-        # ----- Step 2: Collect recipient intervals with high identity (≥99.0%) -----
+        # ----- Step 2: Collect recipient intervals with high homologous identity (≥99.0%) -----
         recip_intervals = []
         for hit in recip_hits[qid]:
-            _, pident, _, qs, qe, _, _, _, line = hit
+            _, pident, _, qs, qe, _, _, evalue, line = hit
             # pident already filtered, but double-check
-            if pident >= 99.0:                 # only consider nearly identical matches
+            if pident >= 99.0 and evalue <= 1e-10:                 # only consider nearly identical matches
                 recip_intervals.append((qs, qe))
                 post_info_lines.append(line)   # store line for later output (only if contig is selected)
         if not recip_intervals:
