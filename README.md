@@ -105,7 +105,7 @@ The length (in base pairs) of the HGT region on the recipient contig. It is calc
 The percentage sequence identity between the recipient (HGT-acquiring) HGT region and its matched donor (HGT-delivery) contig region. It is usually very high (≥99.0%). This column quantifies the similarity of the transferred DNA.
 
 - Gene_Count:
-The number of protein‑coding genes predicted within the HGT region on the recipient contig. It is aggregated from the eggNOG‑mapper annotations. This count reflects the functional complexity of the horizontally transferred segment.
+The number of protein‑coding genes predicted within the HGT region. It is aggregated from the eggNOG‑mapper annotations. This count reflects the functional complexity of the horizontally transferred segment.
 
 - Gene_Description:
 The functional annotation of all genes within the HGT region. This description comes from the eggNOG‑mapper output. It provides biological insight into the potential role of the transferred genetic material.
