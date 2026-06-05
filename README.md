@@ -93,7 +93,7 @@ The base identifier of the recipient contig (from the post‑FMT sample) that ac
 The base identifier of the donor contig (from the donor sample, e.g., D10H_1) that is the source of the transferred DNA. This column indicates which donor sequence contributed the HGT fragment.
 
 - Pre_Recipient:
-The pre‑FMT contig that best matches the recipient HGT region, extracted from the alignment between post‑FMT and pre‑FMT assemblies. This information is used in the judgment calculation to decide whether the HGT is a likely false positive.
+The pre‑FMT contig that best matches the recipient contig acquiring HGT region, extracted from the alignment between post‑FMT and pre‑FMT assemblies. This information is used in the judgment calculation to decide whether the HGT is a likely false positive.
 
 - Judgment:
 A binary value (0 or 1) that flags whether the HGT event is likely false-positive. In downstream parts of the HGTector, the flanking loci of each HGT regions were further checked to ensure that the homologous segments were not false-positives due to insufficient coverage of sequencing or genome assembly. Judgment = 1 means the event passes the edge‑based filter (only those with value of 1 are reserved in .xlsx table).
