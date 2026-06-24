@@ -22,7 +22,7 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 ![](framework.png)
 
-- To systematically identify HGT events driven by FMT, we developed HGTector, a computational framework that integrates metagenomic assembly, homology search, phylogenetic assignment, and functional annotation (as shown above). 
+- To systematically identify HGT events driven by FMT, we developed FMT-HGT, a computational framework that integrates metagenomic assembly, homology search, phylogenetic assignment, and functional annotation (as shown above). 
 
 - Briefly, raw metagenomic reads from donor and recipient (pre‑FMT and post‑FMT) samples were subjected to de-contamination and de novo metagenomic assembly, followed by rigorous quality control and decontamination to remove potential contaminants.
 ![](framework1.png)
@@ -30,13 +30,13 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 ### Notes: 
 - Please appropriately assign the corresponding path of directory containing assembled FMT contig files (e.g. pre-FMT recipient, post-FMT recipient, and Donor contig files), FMT metadata reference, taxonomic database, and gene annotation reference database in the corresponding file (e.g. HGT_main_implementing.sh, qc_annotation.py, convert.sh, and etc.). Full details are available in annotations of each computational script;
 
-- For user who attempt to process long-reads sequencing data (e.g. PacBio type) by HGTector, please revise __"./root.sh"__ in line 253 of HGT_main_implementing.sh as "./root1.sh";
+- For user who attempt to process long-reads sequencing data (e.g. PacBio type) by FMT-HGT, please revise __"./root.sh"__ in line 253 of HGT_main_implementing.sh as "./root1.sh";
 
-- Please feel free to contact us via Chen2422679942@163.com (__Dr. CHEN Sizhe__) and we are willing to provide necessary assistance for implementing HGTector.
+- Please feel free to contact us via Chen2422679942@163.com (__Dr. CHEN Sizhe__) and we are willing to provide necessary assistance for implementing FMT-HGT.
 
 ### A Preliminary Step-by-step Guideline and Example
 
-- The content below is an example for appropriately using HGTector. Assuming in your initial path, you have 3 different directories named as __"FMT_HGT"__, __"tax"__, and __"reference_data_base"__, as shown below:
+- The content below is an example for appropriately using FMT-HGT. Assuming in your initial path, you have 3 different directories named as __"FMT_HGT"__, __"tax"__, and __"reference_data_base"__, as shown below:
 
 ![](workflow1.png)
 
