@@ -51,19 +51,19 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 - The necessary components in __"reference_data_base"__ can be prepared by following the guideline at https://benlangmead.github.io/aws-indexes/k2
 
-- After all basic files prepared as aforementioned, we can start to use HGTector directly.
+- After all basic files prepared as aforementioned, we can start to use FMT-HGT directly.
 
 - First, please make sure that all scripts in this GitHub inventory have been appropriately put in your current user directory path, like the following:
 
 ![](workflow3.png)
 
-- Here, the __"FMT_list.xlsx"__ contains FMT order information for HGTector to understand the longitudinal information of each FMT sample (__preFMT__, __postFMT__, and __Donor__ refers to prefix of __preFMT_filter.fasta__, __postFMT_filter.fast__, and __Donor_filter.fasta__, respectively). The content of it is similar to the format shown below:
+- Here, the __"FMT_list.xlsx"__ contains FMT order information for FMT-HGT to understand the longitudinal information of each FMT sample (__preFMT__, __postFMT__, and __Donor__ refers to prefix of __preFMT_filter.fasta__, __postFMT_filter.fast__, and __Donor_filter.fasta__, respectively). The content of it is similar to the format shown below:
 
 ![](workflow4.png)
 
 - In next step, users can open the script of __HGT_main_implementing.sh__ for more details and information.
 
-__HGT_main_implementing.sh__ is the script serves as the entry point and workflow manager for manipulating the entire HGTector.
+__HGT_main_implementing.sh__ is the script serves as the entry point and workflow manager for manipulating the entire FMT-HGT.
 
 - In this script, lines 1-6 shows the corresponding directory for __"FMT_HGT"__, __"FMT_list.xlsx"__, and intermediate processing directory path (as shown below). Please define the appropriate path for any user-customized conditions.
 
@@ -71,16 +71,16 @@ __HGT_main_implementing.sh__ is the script serves as the entry point and workflo
 
 - __HGT_main_implementing.sh__ call modules or scripts of blastn, blastn_process.py, classifer.py, HGT.py, prodigal, emapper.py, qc_annotation.py, convert.sh, add_species_script.sh, root.sh, fill_species.sh, add_gc_nonhgt.py, filterchecking.py, quality_control_processing.py, etc. Each of the script has unique functions and full annotations of these scripts have been available in the corresponding script and the appropriate loaction in __HGT_main_implementing.sh__.
 
-- Before utilization of HGTector, please pay attention to lines 170-173 in __HGT_main_implementing.sh__, and assign a user-customized parameter n to --min_recipient_cov. We have provided full information and reference regarding the selection of n in annotation part. In any kind of condition, n ≥ 0.5 (n < 1) should be maintained, with exact reasons available in the corresponding annottaion parts in scripts.
+- Before utilization of FMT-HGT, please pay attention to lines 170-173 in __HGT_main_implementing.sh__, and assign a user-customized parameter n to --min_recipient_cov. We have provided full information and reference regarding the selection of n in annotation part. In any kind of condition, n ≥ 0.5 (n < 1) should be maintained, with exact reasons available in the corresponding annottaion parts in scripts.
 
 ![](workflow6.png)
 
 - Then, please open scripts of __convert.sh__, and __add_species_script.sh__ to indicate the exact directory path for the aforementioned __"tax"__, and __"reference_data_base"__, so that these scripts can smoothly function as wished.
 
-- Lastly, implement HGTector by inputting commands of __"nohup ./HGT_main_implementing.sh &"__, and the HGTector pipeline will automatically start.
+- Lastly, implement FMT-HGT by inputting commands of __"nohup ./HGT_main_implementing.sh &"__, and the FMT-HGT pipeline will automatically start.
 
   #### Result and Explanation
-- After implementing HGTector, users will obtain a .xlsx table and seperate .txt report for each FMT under directory path "HGT1_filtered". The .xlsx table looks like the following format:
+- After implementing FMT-HGT, users will obtain a .xlsx table and seperate .txt report for each FMT under directory path "HGT1_filtered". The .xlsx table looks like the following format:
   
 ![](workflow7.png)
 
@@ -96,7 +96,7 @@ The base identifier of the donor contig (from the donor sample, e.g., D10H_1) th
 The pre‑FMT contig that best matches the recipient contig acquiring HGT region, extracted from the alignment between post‑FMT and pre‑FMT assemblies. This information is used in the judgment calculation to decide whether the HGT is a likely false positive.
 
 - Judgment:
-A binary value (0 or 1) that flags whether the HGT event is likely false-positive. In downstream parts of the HGTector, the flanking loci of each HGT regions were further checked to ensure that the homologous segments were not false-positives due to insufficient coverage of sequencing or genome assembly. Judgment = 1 means the event passes the edge‑based filter (only those with value of 1 are reserved in .xlsx table).
+A binary value (0 or 1) that flags whether the HGT event is likely false-positive. In downstream parts of the FMT-HGT, the flanking loci of each HGT regions were further checked to ensure that the homologous segments were not false-positives due to insufficient coverage of sequencing or genome assembly. Judgment = 1 means the event passes the edge‑based filter (only those with value of 1 are reserved in .xlsx table).
 
 - Region_Length:
 The length (in base pairs) of the HGT region on the recipient contig. It is calculated from the start and end coordinates of the transferred segment. This value describes the size of the potential horizontally acquired fragment.
