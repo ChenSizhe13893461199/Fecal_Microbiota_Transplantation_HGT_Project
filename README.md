@@ -22,7 +22,7 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 ![](framework.png)
 
-- To systematically identify HGT events driven by FMT, we developed FMT-HGT, a computational framework that integrates metagenomic assembly, homology search, phylogenetic assignment, and functional annotation (as shown above). 
+- To systematically identify HGT events driven by FMT, we developed FMT-HGTector, a computational framework that integrates metagenomic assembly, homology search, phylogenetic assignment, and functional annotation (as shown above). 
 
 - Briefly, raw metagenomic reads from donor and recipient (pre‑FMT and post‑FMT) samples were subjected to de-contamination and de novo metagenomic assembly, followed by rigorous quality control and decontamination to remove potential contaminants.
 ![](framework1.png)
@@ -30,13 +30,13 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 ### Notes: 
 - Please appropriately assign the corresponding path of directory containing assembled FMT contig files (e.g. pre-FMT recipient, post-FMT recipient, and Donor contig files), FMT metadata reference, taxonomic database, and gene annotation reference database in the corresponding file (e.g. HGT_main_implementing.sh, qc_annotation.py, convert.sh, and etc.). Full details are available in annotations of each computational script;
 
-- For user who attempt to process long-reads sequencing data (e.g. PacBio type) by FMT-HGT, please revise __"./root.sh"__ in line 253 of HGT_main_implementing.sh as "./root1.sh";
+- For user who attempt to process long-reads sequencing data (e.g. PacBio type) by FMT-HGTector, please revise __"./root.sh"__ in line 253 of HGT_main_implementing.sh as "./root1.sh";
 
-- Please feel free to contact us via Chen2422679942@163.com (__Dr. CHEN Sizhe__) and we are willing to provide necessary assistance for implementing FMT-HGT.
+- Please feel free to contact us via Chen2422679942@163.com (__Dr. CHEN Sizhe__) and we are willing to provide necessary assistance for implementing FMT-HGTector.
 
 ### A Preliminary Step-by-step Guideline and Example
 
-- The content below is an example for appropriately using FMT-HGT. Assuming in your initial path, you have 3 different directories named as __"FMT_HGT"__, __"tax"__, and __"reference_data_base"__, as shown below:
+- The content below is an example for appropriately using FMT-HGTector. Assuming in your initial path, you have 3 different directories named as __"FMT_HGT"__, __"tax"__, and __"reference_data_base"__, as shown below:
 
 ![](workflow1.png)
 
@@ -51,13 +51,13 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 - The necessary components in __"reference_data_base"__ can be prepared by following the guideline at https://benlangmead.github.io/aws-indexes/k2
 
-- After all basic files prepared as aforementioned, we can start to use FMT-HGT directly.
+- After all basic files prepared as aforementioned, we can start to use FMT-HGTector directly.
 
 - First, please make sure that all scripts in this GitHub inventory have been appropriately put in your current user directory path, like the following:
 
 ![](workflow3.png)
 
-- Here, the __"FMT_list.xlsx"__ contains FMT order information for FMT-HGT to understand the longitudinal information of each FMT sample (__preFMT__, __postFMT__, and __Donor__ refers to prefix of __preFMT_filter.fasta__, __postFMT_filter.fast__, and __Donor_filter.fasta__, respectively). The content of it is similar to the format shown below:
+- Here, the __"FMT_list.xlsx"__ contains FMT order information for FMT-HGTector to understand the longitudinal information of each FMT sample (__preFMT__, __postFMT__, and __Donor__ refers to prefix of __preFMT_filter.fasta__, __postFMT_filter.fast__, and __Donor_filter.fasta__, respectively). The content of it is similar to the format shown below:
 
 ![](workflow4.png)
 
@@ -71,7 +71,7 @@ __HGT_main_implementing.sh__ is the script serves as the entry point and workflo
 
 - __HGT_main_implementing.sh__ call modules or scripts of blastn, blastn_process.py, classifer.py, HGT.py, prodigal, emapper.py, qc_annotation.py, convert.sh, add_species_script.sh, root.sh, fill_species.sh, add_gc_nonhgt.py, filterchecking.py, quality_control_processing.py, etc. Each of the script has unique functions and full annotations of these scripts have been available in the corresponding script and the appropriate loaction in __HGT_main_implementing.sh__.
 
-- Before utilization of FMT-HGT, please pay attention to lines 170-173 in __HGT_main_implementing.sh__, and assign a user-customized parameter n to --min_recipient_cov. We have provided full information and reference regarding the selection of n in annotation part. In any kind of condition, n ≥ 0.5 (n < 1) should be maintained, with exact reasons available in the corresponding annottaion parts in scripts.
+- Before utilization of FMT-HGTector, please pay attention to lines 170-173 in __HGT_main_implementing.sh__, and assign a user-customized parameter n to --min_recipient_cov. We have provided full information and reference regarding the selection of n in annotation part. In any kind of condition, n ≥ 0.5 (n < 1) should be maintained, with exact reasons available in the corresponding annottaion parts in scripts.
 
 ![](workflow6.png)
 
@@ -80,7 +80,7 @@ __HGT_main_implementing.sh__ is the script serves as the entry point and workflo
 - Lastly, implement FMT-HGT by inputting commands of __"nohup ./HGT_main_implementing.sh &"__, and the FMT-HGT pipeline will automatically start.
 
   #### Result and Explanation
-- After implementing FMT-HGT, users will obtain a .xlsx table and seperate .txt report for each FMT under directory path "HGT1_filtered". The .xlsx table looks like the following format:
+- After implementing FMT-HGTector, users will obtain a .xlsx table and seperate .txt report for each FMT under directory path "HGT1_filtered". The .xlsx table looks like the following format:
   
 ![](workflow7.png)
 
