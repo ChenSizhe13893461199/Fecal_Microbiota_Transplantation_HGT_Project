@@ -77,7 +77,7 @@ __HGT_main_implementing.sh__ is the script serves as the entry point and workflo
 
 - Then, please open scripts of __convert.sh__, and __add_species_script.sh__ to indicate the exact directory path for the aforementioned __"tax"__, and __"reference_data_base"__, so that these scripts can smoothly function as wished.
 
-- Lastly, implement FMT-HGT by inputting commands of __"nohup ./HGT_main_implementing.sh &"__, and the FMT-HGT pipeline will automatically start.
+- Lastly, implement FMT-HGTector by inputting commands of __"nohup ./HGT_main_implementing.sh &"__, and the FMT-HGTector pipeline will automatically start.
 
   #### Result and Explanation
 - After implementing FMT-HGTector, users will obtain a .xlsx table and seperate .txt report for each FMT under directory path "HGT1_filtered". The .xlsx table looks like the following format:
@@ -96,7 +96,7 @@ The base identifier of the donor contig (from the donor sample, e.g., D10H_1) th
 The pre‑FMT contig that best matches the recipient contig acquiring HGT region, extracted from the alignment between post‑FMT and pre‑FMT assemblies. This information is used in the judgment calculation to decide whether the HGT is a likely false positive.
 
 - Judgment:
-A binary value (0 or 1) that flags whether the HGT event is likely false-positive. In downstream parts of the FMT-HGT, the flanking loci of each HGT regions were further checked to ensure that the homologous segments were not false-positives due to insufficient coverage of sequencing or genome assembly. Judgment = 1 means the event passes the edge‑based filter (only those with value of 1 are reserved in .xlsx table).
+A binary value (0 or 1) that flags whether the HGT event is likely false-positive. In downstream parts of the FMT-HGTector, the flanking loci of each HGT regions were further checked to ensure that the homologous segments were not false-positives due to insufficient coverage of sequencing or genome assembly. Judgment = 1 means the event passes the edge‑based filter (only those with value of 1 are reserved in .xlsx table).
 
 - Region_Length:
 The length (in base pairs) of the HGT region on the recipient contig. It is calculated from the start and end coordinates of the transferred segment. This value describes the size of the potential horizontally acquired fragment.
