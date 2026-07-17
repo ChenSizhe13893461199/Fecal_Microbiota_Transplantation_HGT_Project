@@ -51,7 +51,7 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 - The necessary components in __"reference_data_base"__ can be prepared by following the guideline at https://benlangmead.github.io/aws-indexes/k2
 
-- After all basic files prepared as aforementioned, we can start to use FMT-HGTector directly.
+- After all basic files prepared as aforementioned, we can start to use FMT-HGTector directly. Before implementing the FMT-HGTector, please pay attention to the following key points:
 
 - First, please make sure that all scripts in this GitHub inventory have been appropriately put in your current user directory path, like the following:
 
