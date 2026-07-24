@@ -20,7 +20,7 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 ## Core Framework of the Pipeline
 
-![](framework9.png)
+![](framework.png)
 
 - To systematically identify HGT events driven by FMT, we developed FMT-HGTector, a computational framework that integrates metagenomic assembly, homology search, phylogenetic assignment, and functional annotation (as shown above). 
 
