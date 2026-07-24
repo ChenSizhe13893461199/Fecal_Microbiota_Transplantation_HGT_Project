@@ -107,18 +107,18 @@ The length (in base pairs) of the HGT region on the recipient contig. It is calc
 The percentage sequence identity between the recipient (HGT-acquiring) HGT region and its matched donor (HGT-delivery) contig region. It is usually very high (≥99.0%). This column quantifies the similarity of the transferred DNA.
 
 - Gene_Count:
-The number of protein‑coding genes predicted within the HGT region. It is aggregated from the eggNOG‑mapper annotations. This count reflects the functional complexity of the horizontally transferred segment.
+The number of protein‑coding genes predicted within the HGT region. It is aggregated from the eggNOG‑mapper annotations. This count reflects the number of genes within the horizontally transferred segment.
 
 - Gene_Description:
 The functional annotation of all genes within the HGT region. This description comes from the eggNOG‑mapper output. It provides biological insight into the potential role of the transferred genetic material.
 
 - Recipient_Species:
-The taxonomic species assigned to the recipient contig (post‑FMT), based on the extracted contig sequence. This column indicates the species that harbours the HGT event in the post‑transplant sample.
+The taxonomic species assigned to the recipient contig (post‑FMT), based on the extracted contig sequence. This column indicates the species that harbours the HGT event.
 
 - Donor_Species:
 The taxonomic species assigned to the donor contig. It identifies the source organism from which the HGT fragment originated.
 
-In addition, the .txt (report for each FMT) looks like the following format:
+In addition, the .txt (report for each FMT) looks like the following format below:
 
 ![](workflow8.png)
 
