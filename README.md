@@ -126,7 +126,7 @@ In addition, the .txt (report for each FMT) looks like the following format belo
 
 - The entire HGT region spans approximately 31 kb (length 31010, __length__ column) and contains nine predicted genes, with HGT region sharing __99.291%__ identity (__rate__ column).
 
-- The column of __GC_HGT__ and __GC_nonHGT__ represent the GC content (percentage) of the HGT region and flanking non-HGT region. It differs by 44.95%-42.37%=2.58% GC content difference, suggesting that the HGT regions and background (non‑HGT) regions have distinct GC compositions). In addition, The recipient and donor species are phylogenetically different, satisfying the key filtering criterion for a HGT event.
+- The column of __GC_HGT__ and __GC_nonHGT__ represent the GC content (percentage) of the HGT region and the flanking non-HGT region. It differs by 44.95%-42.37%=2.58% GC content difference, suggesting that the HGT regions and background (non‑HGT) regions have distinct GC compositions). In addition, The recipient and donor species are phylogenetically different, satisfying the key filtering criterion for a HGT event.
 
 - ### Installation
 
