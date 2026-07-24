@@ -92,7 +92,7 @@ The exact meanings of each column have been provided below:
 The base identifier of the recipient contig (from the post‑FMT sample) that acquired the HGT region. This column links the event to the specific contig in the recipient’s assembly.
 
 - Donor_Base:
-The base identifier of the donor contig (from the donor sample, e.g., D10H_1) that is the source of the transferred DNA. This column indicates which donor sequence contributed the HGT fragment.
+The base identifier of the donor contig (from the donor sample) that is the source of the transferred DNA. This column indicates which donor sequence contributed the HGT fragment.
 
 - Pre_Recipient:
 The pre‑FMT contig that best matches the recipient contig acquiring HGT region, extracted from the alignment between post‑FMT and pre‑FMT assemblies. This information is used in the judgment calculation to decide whether the HGT is a likely false positive.
