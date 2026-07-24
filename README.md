@@ -113,7 +113,7 @@ The number of protein‑coding genes predicted within the HGT region. It is aggr
 The functional annotation of all genes within the HGT region. This description comes from the eggNOG‑mapper output. It provides biological insight into the potential role of the transferred genetic material.
 
 - Recipient_Species:
-The taxonomic species assigned to the recipient contig (post‑FMT), based on the extracted contig sequence. This column indicates the species that harbours the HGT event.
+The taxonomic species assigned to the recipient contig (post‑FMT). This column indicates the species that harbours the HGT event.
 
 - Donor_Species:
 The taxonomic species assigned to the donor contig. It identifies the source organism from which the HGT fragment originated.
