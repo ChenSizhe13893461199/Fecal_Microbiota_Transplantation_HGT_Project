@@ -38,7 +38,7 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 - The content below is an example for appropriately using FMT-HGTector. Assuming in your initial path, you have 4 different directories named as __"FMT_HGT"__, __"tax"__, __"reference_data_base"__, and __"data"__, as shown below:
 
-![](workflow199.png)
+![](workflow191.png)
 
 - Metagenomic Assembled Files (pre-FMT recipient, post-FMT recipient, and Donor) are deposited in __"FMT_HGT"__, with phylogenetic annotation files contained in __"tax"__ and __"reference_data_base"__, respectively. The database of eggNOG‑mapper is deposited in __"data"__. In __"FMT_HGT"__, we have 3 metagenomic assembled files (as shown below), with contigs < 5000 bp filtered.
 
