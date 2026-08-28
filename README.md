@@ -51,7 +51,7 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 
 - The necessary components in __"reference_data_base"__ can be prepared by following the guideline at https://benlangmead.github.io/aws-indexes/k2
 
-- For database of eggNOG‑mapper, please refer to https://github.com/eggnogdb/eggnog-mapper (the relevant database can be deposited in a directory with name of "data")
+- For database of eggNOG‑mapper, please refer to https://github.com/eggnogdb/eggnog-mapper (the relevant database can be downloaded in a directory with name of __"data"__; the directory should also be put in the aforementioned working path of FMT-HGTector)
 
 - After all basic files prepared as aforementioned, we can start to use FMT-HGTector directly.
 
