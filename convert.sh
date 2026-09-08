@@ -113,11 +113,11 @@ for i in "${!pre_samples[@]}"; do
 
     # Verify that original FASTA files exist
     if [ ! -f "$pre_fasta" ]; then
-        echo "Error: donor FASTA $donor_fasta not found. Skipping sample."
+        echo "Error: pre-FMT FASTA $donor_fasta not found. Skipping sample."
         continue
     fi
     if [ ! -f "$donor_fasta" ]; then
-        echo "Error: pre-FMT FASTA $pre_fasta not found. Skipping sample."
+        echo "Error: donor FASTA $pre_fasta not found. Skipping sample."
         continue
     fi
 
