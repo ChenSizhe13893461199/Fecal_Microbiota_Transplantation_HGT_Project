@@ -52,15 +52,15 @@ def parse_emapper_annotations(filepath):
             seg = query.split('|')
             if len(seg) != 3:
                 continue
-            rec_contig = seg[0]          # e.g. NODE_2754_length_5606_cov_2.954242
-            don_contig = seg[1]           # e.g. NODE_5840_length_5382_cov_12.879670
-            rest = seg[2]                  # e.g. recipient:3105-5606_1
+            rec_contig = seg[0]         
+            don_contig = seg[1]           
+            rest = seg[2]                  
             if not rest.startswith('recipient:'):
                 continue
-            coord_gene = rest.replace('recipient:', '')  # e.g. 3105-5606_1
+            coord_gene = rest.replace('recipient:', '')  
             if '_' not in coord_gene:
                 continue
-            coord, gene_num = coord_gene.rsplit('_', 1)  # coord = 3105-5606, gene_num = 1
+            coord, gene_num = coord_gene.rsplit('_', 1)  
             # Parse coordinates
             if '-' not in coord:
                 continue
@@ -228,7 +228,7 @@ def main():
         # 2. Parse donor contig1 BLAST file (HSPs)
         blast_hsps = parse_contig1_blast(contig1_file)
         if not blast_hsps:
-            print(f"  警告：donor contig1 文件解析失败或无有效数据，跳过该样本")
+            print(f"  warning：donor contig1 without valid data，skipping")
             continue
 
         # 3. Parse aligned.fasta (recipient HGT regions)
