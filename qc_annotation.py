@@ -296,7 +296,7 @@ def main():
                 for r in output_rows:
                     line = '\t'.join(str(r[col]) for col in header)
                     f.write(line + '\n')
-            print(f"Generated result file：{out_file}，共 {len(output_rows)} 条记录")
+            print(f"Generated result file：{out_file}， {len(output_rows)} valid records")
         else:
             print(f"Warning: no valid output rows for sample {post}, skipping")
 
