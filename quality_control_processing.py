@@ -88,13 +88,13 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
     """
     # Parse recipient full length and coordinates
     len_rec = extract_length_from_base(pure_rec_base)
-    if len_rec is None:
-        return 1  # Cannot determine length, conservative keep
+    #if len_rec is None:
+        #return 1  # Cannot determine length, conservative keep
 
-    coord_part_rec = rec_base_with_coord.rsplit('_', 1)[-1]  # 如 "1-3934"
+    coord_part_rec = rec_base_with_coord.rsplit('_', 1)[-1] 
     rec_start, rec_end = parse_coordinate_pair(coord_part_rec, sep='-')
-    if rec_start is None or rec_end is None:
-        return 1
+    #if rec_start is None or rec_end is None:
+        #return 1
 
     rec_left_edge = (rec_start == 1)
     rec_right_edge = (rec_end == len_rec)
@@ -124,7 +124,7 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
     pre_left_edge = (pre_start == 1)
     pre_right_edge = (pre_end == len_pre)
 
-    # Pre‑recipient not at edge -> keep
+    # not at edge -> keep
     if not pre_left_edge and not pre_right_edge:
         return 1
 
