@@ -67,7 +67,7 @@ def parse_coordinate_pair(coord_str, sep='-'):
         return None, None
     try:
         a, b = int(parts[0]), int(parts[1])
-        return (a, b) if a <= b else (b, a)
+        return (a, b) #if a <= b else (b, a)
     except:
         return None, None
 
@@ -129,11 +129,19 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
         return 1
 
     # Both at edges: check if same side
-    if rec_left_edge and pre_left_edge:
-        return 0         # Both left edge → likely false positive
-    if rec_right_edge and pre_right_edge:
-        return 0         # Both right edge → likely false positive
-    return 1             # Different edges → keep
+    if pre_start < pre_end:
+     if rec_left_edge and pre_left_edge:
+         return 0         # Both left edge → likely false positive
+     if rec_right_edge and pre_right_edge:
+         return 0         # Both right edge → likely false positive
+     return 1             # Different edges → keep
+
+    if pre_start > pre_end:
+     if rec_left_edge and pre_right_edge:
+         return 0         # Both different edge → likely false positive
+     if rec_right_edge and pre_left_edge:
+         return 0         # Both different edge → likely false positive
+     return 1             # the same edges → keep
 
 def get_pre_recipient(blast_file_path, query_pure_base):
     """
