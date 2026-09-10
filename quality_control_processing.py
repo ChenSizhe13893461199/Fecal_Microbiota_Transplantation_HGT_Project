@@ -104,8 +104,8 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
         return 1
 
     # Recipient at edge, need pre‑recipient info
-    if not pre_recipient_str:
-        return 1  # No info, conservative keep
+    #if not pre_recipient_str:
+        #return 1  # No info, conservative keep
 
     # Parse Pre_Recipient string, format: "subject_s_start_s_end" e.g., "NODE_893_length_7882_cov_32.011499_1563_6837"
     pre_parts = pre_recipient_str.rsplit('_', 2)
