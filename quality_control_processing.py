@@ -95,9 +95,12 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
     rec_start, rec_end = parse_coordinate_pair(coord_part_rec, sep='-')
     #if rec_start is None or rec_end is None:
         #return 1
-
-    rec_left_edge = (rec_start == 1)
-    rec_right_edge = (rec_end == len_rec)
+    if pre_start < pre_end:
+     rec_left_edge = (rec_start == 1)
+     rec_right_edge = (rec_end == len_rec)
+    if pre_start > pre_end:
+     rec_left_edge = (rec_start == len_rec)
+     rec_right_edge = (rec_end == 1)
 
     # Recipient not at edge -> keep
     if not rec_left_edge and not rec_right_edge:
