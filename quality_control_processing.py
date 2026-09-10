@@ -109,17 +109,17 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
 
     # Parse Pre_Recipient string, format: "subject_s_start_s_end" e.g., "NODE_893_length_7882_cov_32.011499_1563_6837"
     pre_parts = pre_recipient_str.rsplit('_', 2)
-    if len(pre_parts) != 3:
-        return 1
+    #if len(pre_parts) != 3:
+        #return 1
     pre_base = pre_parts[0]
     pre_coord_str = f"{pre_parts[1]}_{pre_parts[2]}"
     pre_start, pre_end = parse_coordinate_pair(pre_coord_str, sep='_')
-    if pre_start is None or pre_end is None:
-        return 1
+    #if pre_start is None or pre_end is None:
+        #return 1
 
     len_pre = extract_length_from_base(pre_base)
-    if len_pre is None:
-        return 1
+    #if len_pre is None:
+        #return 1
 
     pre_left_edge = (pre_start == 1)
     pre_right_edge = (pre_end == len_pre)
