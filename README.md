@@ -28,9 +28,7 @@ This pipeline identifies putative horizontal gene transfer (HGT) events from lon
 ![](frameworkpipeline9.png)
 
 ### Notes: 
-- Please appropriately assign the corresponding path of directory containing assembled FMT contig files (e.g. pre-FMT recipient, post-FMT recipient, and Donor contig files), FMT metadata reference, taxonomic database, and gene annotation reference database in the corresponding file (e.g. HGT_main_implementing.sh, qc_annotation.py, convert.sh, and etc.). Full details are available in annotations of each computational script;
-
-- Please feel free to contact us via Chen2422679942@163.com (__Dr. CHEN Sizhe__) and we are willing to provide necessary assistance for implementing FMT-HGTector.
+- Please appropriately assign the corresponding path of directory containing assembled FMT contig files (e.g. pre-FMT recipient, post-FMT recipient, and Donor contig files), FMT metadata reference, taxonomic database, and gene annotation reference database in the corresponding file (e.g. HGT_main_implementing.sh, qc_annotation.py, convert.sh, and etc.). Full details are available in annotations of each computational script.
 
 ### A Preliminary Step-by-step Guideline and Example
 
@@ -82,7 +80,7 @@ __HGT_main_implementing.sh__ is the script serves as the entry point and workflo
 - Lastly, implement FMT-HGTector by inputting commands of __"nohup ./HGT_main_implementing.sh &"__, and the FMT-HGTector pipeline will automatically start.
 
   #### Result and Explanation
-- After implementing FMT-HGTector, users will obtain a .xlsx table and seperate .txt report for each FMT under directory path "HGT1_filtered". The .xlsx table looks like the following format:
+- After implementing FMT-HGTector, users will obtain a .xlsx table and seperate .txt report. The .xlsx table looks like the following format:
   
 ![](workflow7.png)
 
