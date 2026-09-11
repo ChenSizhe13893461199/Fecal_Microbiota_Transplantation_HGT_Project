@@ -7,29 +7,15 @@ judgment (0 or 1) using the corresponding pre-FMT recipient BLAST mapping,
 then filters records by species level (recipient_species must differ from
 donor_species; human species excluded).
 
+Only directories whose basename is "HGT1_filtered" are scanned.
+Any other directory (e.g. HGT1/, filter/, final/) is ignored.
+
 Each event is keyed by (recipient_base, donor_base). Since several genes
 may belong to the same event, the gene-level field (Gene_Description) is
 concatenated with " | ".
 
 Output:
     <root_dir>/HGT_event_details.xlsx  (single sheet: "Overall")
-
-Supported directory layouts
----------------------------
-Flat layout:
-    <root_dir>/
-        HGT1_filtered/                       (or HGT1/)
-            <sample>_HGT_statistics1.txt
-        blast_results/                       (or result/, optional)
-            <sample>_blast_recipient1.txt
-
-Nested layout:
-    <root_dir>/
-        <cohort>/
-            HGT1_filtered/                   (or HGT1/)
-                <sample>_HGT_statistics1.txt
-            blast_results/
-                <sample>_blast_recipient1.txt
 """
 
 import os
@@ -37,6 +23,12 @@ import re
 import traceback
 import pandas as pd
 from collections import defaultdict
+
+
+# ---------------------------------------------------------------------------
+# Configuration
+# ---------------------------------------------------------------------------
+TARGET_DIR_NAME = "HGT1_filtered"    # only scan directories with this basename
 
 
 # ---------------------------------------------------------------------------
@@ -55,10 +47,7 @@ def safe_sheet_name(name, max_len=31):
 # Species-level helpers
 # ---------------------------------------------------------------------------
 def extract_species_name(full_name):
-    """
-    Extract the species-level name (genus + species) from a full description.
-    Used for filtering only.
-    """
+    """Extract the species-level name (genus + species). Used for filtering only."""
     if full_name is None:
         return ""
     if isinstance(full_name, float) and pd.isna(full_name):
@@ -102,10 +91,7 @@ def is_human_species(species_name):
 # Parsing helpers
 # ---------------------------------------------------------------------------
 def extract_base_and_length(contig_str, is_recipient=True):
-    """
-    Extract the contig base identifier (without the trailing gene number)
-    and, for recipient contigs, the length of the coordinate interval.
-    """
+    """Extract contig base identifier and (for recipient) interval length."""
     parts = contig_str.rsplit('_', 1)
     if len(parts) == 2 and parts[1].isdigit():
         base = parts[0]
@@ -123,9 +109,7 @@ def extract_base_and_length(contig_str, is_recipient=True):
 
 
 def extract_pure_recipient_base(contig_str):
-    """
-    Strip both the trailing gene number and the coordinate suffix.
-    """
+    """Strip both the trailing gene number and the coordinate suffix."""
     parts = contig_str.rsplit('_', 1)
     base_with_coord = parts[0] if (len(parts) == 2 and parts[1].isdigit()) else contig_str
     return base_with_coord.rsplit('_', 1)[0]
@@ -232,7 +216,6 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
     """
     Read one *_HGT_statistics*.txt file, aggregate gene rows into events
     keyed by (recipient_base, donor_base), and attach pre-recipient info.
-    Gene_Description is collected per event and later joined with " | ".
     """
     event_stats = defaultdict(lambda: {
         'length': 0,
@@ -292,7 +275,6 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
             stats['pure_rec_base'] = pure_rec_base
             stats['rate'] = rate
 
-        # Collect gene description (skip placeholders)
         if gene_description and gene_description not in ("", "-"):
             stats['gene_descriptions'].append(gene_description)
 
@@ -313,10 +295,18 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
 # Directory discovery
 # ---------------------------------------------------------------------------
 def find_hgt_stat_dirs(root_dir):
-    """Return all directories that directly contain *_HGT_statistics*.txt files."""
+    """
+    Return all directories whose basename equals TARGET_DIR_NAME
+    (i.e. "HGT1_filtered") and that directly contain *_HGT_statistics*.txt files.
+    Any other directory (HGT1/, filter/, final/, etc.) is ignored.
+    """
     hits = []
     for dirpath, dirnames, filenames in os.walk(root_dir):
         dirnames[:] = [d for d in dirnames if not d.startswith('.')]
+
+        if os.path.basename(dirpath.rstrip(os.sep)) != TARGET_DIR_NAME:
+            continue
+
         if any(f.endswith('.txt') and 'HGT_statistics' in f for f in filenames):
             hits.append(dirpath)
     return hits
@@ -346,11 +336,11 @@ def main():
 
     hgt_stat_dirs = find_hgt_stat_dirs(root_dir)
     if not hgt_stat_dirs:
-        print(f"Error: no directory containing *_HGT_statistics*.txt found "
-              f"under {os.path.abspath(root_dir)}")
+        print(f"Error: no '{TARGET_DIR_NAME}' directory containing "
+              f"*_HGT_statistics*.txt found under {os.path.abspath(root_dir)}")
         return
 
-    print("Found HGT statistics directories:")
+    print(f"Found '{TARGET_DIR_NAME}' directories:")
     for d in hgt_stat_dirs:
         print(f"  {d}")
 
@@ -416,7 +406,6 @@ def main():
                 except ValueError:
                     rate_val = stats['rate']
 
-                # ---- 3) Concatenate gene descriptions with " | " ----
                 gene_desc_joined = " | ".join(stats['gene_descriptions'])
 
                 all_records.append({
@@ -487,3 +476,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
