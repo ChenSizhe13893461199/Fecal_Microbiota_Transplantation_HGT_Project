@@ -264,7 +264,7 @@ def main():
                     break
 
             if matched_hsp is None:
-                print(f"    警告：基因 {gene_id} 在 {contig1_file} 中找不到与之重叠的 HSP，跳过")
+                print(f"    warning：gene {gene_id} can not find HSP in {contig1_file}，skip")
                 continue
 
             # Build donor-side coordinate string (preserving original order)
