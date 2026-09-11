@@ -273,6 +273,7 @@ mv final/*_HGT_statistics.txt .
 # Saves the enriched table as {post}_HGT_statistics1.txt in the HGT1/ directory.
 # Thus, add_gc_nonhgt.py provides essential genomic context (background GC content) that can help distinguish genuine horizontally transferred regions from native genomic segments
 python add_gc_nonhgt.py
+rm ./*_HGT_statistics.txt
 
 # please use your own environment name for utilization
 source activate base
