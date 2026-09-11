@@ -195,11 +195,11 @@ for i in "${!pre_samples[@]}"; do
 
     #encoding gene prediction and processing
     prodigal -i "HGT/${post}_aligned.fasta" -o "output/${post}_aligned.fasta.gbk" -a "output/${post}_aligned_proteins.faa" -d "output/${post}_aligned_nucleotides.faa" -p meta
-    source activate eggnog
+    
 
     #functional annotation of encoding genes predicted above
     emapper.py -i "output/${post}_aligned_proteins.faa" -o "${post}_donor_HGT" --output_dir HGT  -m diamond --data_dir data/ --cpu 8
-    source activate base 
+     
 done
 
 # quality control steps
