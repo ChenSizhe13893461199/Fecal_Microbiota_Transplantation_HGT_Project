@@ -8,8 +8,8 @@ then filters records by species level (recipient_species must differ from
 donor_species; human species excluded).
 
 Each event is keyed by (recipient_base, donor_base). Since several genes
-may belong to the same event, the gene-level fields
-(Gene_Description and Module_Classification) are concatenated with " | ".
+may belong to the same event, the gene-level field (Gene_Description) is
+concatenated with " | ".
 
 Output:
     <root_dir>/HGT_event_details.xlsx  (single sheet: "Overall")
@@ -57,12 +57,7 @@ def safe_sheet_name(name, max_len=31):
 def extract_species_name(full_name):
     """
     Extract the species-level name (genus + species) from a full description.
-
-    Examples:
-        "Faecalibacterium prausnitzii SL3/3"                 -> "Faecalibacterium prausnitzii"
-        "Bifidobacterium pseudocatenulatum DSM 20438 = JCM"  -> "Bifidobacterium pseudocatenulatum"
-        "Ruminococcus sp. ABC"                               -> "Ruminococcus sp."
-        "-" or "" or NaN                                     -> ""
+    Used for filtering only.
     """
     if full_name is None:
         return ""
@@ -110,9 +105,6 @@ def extract_base_and_length(contig_str, is_recipient=True):
     """
     Extract the contig base identifier (without the trailing gene number)
     and, for recipient contigs, the length of the coordinate interval.
-
-    Input example (recipient):
-        NODE_369_length_73589_cov_48.599043_41175-62863_1
     """
     parts = contig_str.rsplit('_', 1)
     if len(parts) == 2 and parts[1].isdigit():
@@ -133,10 +125,6 @@ def extract_base_and_length(contig_str, is_recipient=True):
 def extract_pure_recipient_base(contig_str):
     """
     Strip both the trailing gene number and the coordinate suffix.
-
-    Example:
-        NODE_1550_length_9207_cov_4.840691_1-3934_1
-        -> NODE_1550_length_9207_cov_4.840691
     """
     parts = contig_str.rsplit('_', 1)
     base_with_coord = parts[0] if (len(parts) == 2 and parts[1].isdigit()) else contig_str
@@ -162,9 +150,7 @@ def parse_coordinate_pair(coord_str, sep='-'):
 # Judgment
 # ---------------------------------------------------------------------------
 def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
-    """
-    Return 1 for a potential genuine HGT event, 0 for a likely false positive.
-    """
+    """Return 1 for a potential genuine HGT event, 0 for a likely false positive."""
     len_rec = extract_length_from_base(pure_rec_base)
     rec_start, rec_end = parse_coordinate_pair(
         rec_base_with_coord.rsplit('_', 1)[-1], sep='-'
@@ -220,10 +206,7 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
 
 
 def get_pre_recipient(blast_file_path, query_pure_base):
-    """
-    Scan a post-vs-pre BLAST file for a given query contig base name.
-    Returns 'subject_s_start_s_end' or '' if not found.
-    """
+    """Scan a post-vs-pre BLAST file for a given query contig base name."""
     if not blast_file_path or not os.path.isfile(blast_file_path):
         return ""
     try:
@@ -249,9 +232,7 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
     """
     Read one *_HGT_statistics*.txt file, aggregate gene rows into events
     keyed by (recipient_base, donor_base), and attach pre-recipient info.
-
-    Gene-level fields (Gene_Description, Module_Classification) are stored
-    as lists and later joined with " | ".
+    Gene_Description is collected per event and later joined with " | ".
     """
     event_stats = defaultdict(lambda: {
         'length': 0,
@@ -262,8 +243,6 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
         'pre_recipient': "",
         'rate': None,
         'gene_descriptions': [],
-        'module_classes': [],
-        'taxonomic_species': [],
     })
 
     try:
@@ -290,14 +269,12 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
         # 4 Gene_Description | 5 Module_Classification | 6 Taxonomic_Species
         # 7 Recipient_Contig | 8 Donor_Contig | 9 rate | 10 length
         # 11 recipient_species | 12 donor_species
-        gene_description    = parts[4]
-        module_class        = parts[5]
-        taxonomic_species   = parts[6]
-        recipient_contig    = parts[7]
-        donor_contig        = parts[8]
-        rate                = parts[9]
-        recipient_species   = parts[11]
-        donor_species       = parts[12]
+        gene_description  = parts[4]
+        recipient_contig  = parts[7]
+        donor_contig      = parts[8]
+        rate              = parts[9]
+        recipient_species = parts[11]
+        donor_species     = parts[12]
 
         rec_base, length = extract_base_and_length(recipient_contig, True)
         don_base, _ = extract_base_and_length(donor_contig, False)
@@ -315,13 +292,9 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
             stats['pure_rec_base'] = pure_rec_base
             stats['rate'] = rate
 
-        # Collect gene-level content
+        # Collect gene description (skip placeholders)
         if gene_description and gene_description not in ("", "-"):
             stats['gene_descriptions'].append(gene_description)
-        if module_class and module_class not in ("", "-"):
-            stats['module_classes'].append(module_class)
-        if taxonomic_species and taxonomic_species not in ("", "-"):
-            stats['taxonomic_species'].append(taxonomic_species)
 
     # Attach Pre_Recipient from the corresponding BLAST file, if available
     blast_filename = stat_basename.replace("_HGT_statistics", "_blast_recipient")
@@ -428,16 +401,13 @@ def main():
                 rec_species_simple = extract_species_name(rec_species_full)
                 don_species_simple = extract_species_name(don_species_full)
 
-                # Drop if recipient == donor at species level
                 if rec_species_simple and don_species_simple \
                         and rec_species_simple == don_species_simple:
                     continue
 
-                # Drop if either side is human
                 if is_human_species(rec_species_full) or is_human_species(don_species_full):
                     continue
 
-                # Drop if species information is missing / invalid
                 if rec_species_simple in ("", "-") or don_species_simple in ("", "-"):
                     continue
 
@@ -446,10 +416,8 @@ def main():
                 except ValueError:
                     rate_val = stats['rate']
 
-                # ---- 3) Concatenate gene-level content with " | " ----
+                # ---- 3) Concatenate gene descriptions with " | " ----
                 gene_desc_joined = " | ".join(stats['gene_descriptions'])
-                module_joined = " | ".join(stats['module_classes'])
-                tax_species_joined = " | ".join(stats['taxonomic_species'])
 
                 all_records.append({
                     "FMT": sample,
@@ -463,8 +431,6 @@ def main():
                     "Recipient_Species": rec_species_full,
                     "Donor_Species": don_species_full,
                     "Gene_Description": gene_desc_joined,
-                    "Module_Classification": module_joined,
-                    "Taxonomic_Species": tax_species_joined,
                 })
 
     # ---------------- Summary ----------------
@@ -491,8 +457,6 @@ def main():
         "Recipient_Species",
         "Donor_Species",
         "Gene_Description",
-        "Module_Classification",
-        "Taxonomic_Species",
     ]
 
     overall_df = pd.DataFrame(all_records)
