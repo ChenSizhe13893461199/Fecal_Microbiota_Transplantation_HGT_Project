@@ -135,8 +135,8 @@ for i in "${!pre_samples[@]}"; do
     # ============================================================
     # MOD 4: Build species lookup arrays
     # recipient: species.map 的键是 pre-FMT contig，
-    #            需要 post -> pre 映射（来自 HGT/${post}_contig1.txt），
-    #            再查 pre -> species，最终得到 post -> species
+    #             post -> pre 映射HGT/${post}_contig1.txt，
+    #             pre -> species， post -> species
     # ============================================================
     declare -A pre2sp
     while IFS=$'\t' read -r seqid species; do
