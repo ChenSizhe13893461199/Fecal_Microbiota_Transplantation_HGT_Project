@@ -98,7 +98,7 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
     if rec_start < rec_end:
      rec_left_edge = (rec_start == 1)
      rec_right_edge = (rec_end == len_rec)
-    if rec_end > rec_end:
+    if rec_start > rec_end:
      rec_left_edge = (rec_start == len_rec)
      rec_right_edge = (rec_end == 1)
 
