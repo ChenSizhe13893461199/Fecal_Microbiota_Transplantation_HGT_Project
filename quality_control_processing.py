@@ -7,6 +7,10 @@ judgment (0 or 1) using the corresponding pre-FMT recipient BLAST mapping,
 then filters records by species level (recipient_species must differ from
 donor_species; human species excluded).
 
+Each event is keyed by (recipient_base, donor_base). Since several genes
+may belong to the same event, the gene-level fields
+(Gene_Description and Module_Classification) are concatenated with " | ".
+
 Output:
     <root_dir>/HGT_event_details.xlsx  (single sheet: "Overall")
 
@@ -71,7 +75,6 @@ def extract_species_name(full_name):
 
     parts = s.split()
     if len(parts) >= 2:
-        # Keep "Genus sp." together with a trailing identifier if present
         if parts[1].lower() in ("sp.", "sp", "spp.", "spp"):
             base = parts[0] + " " + parts[1]
             if len(parts) > 2:
@@ -166,8 +169,8 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
     rec_start, rec_end = parse_coordinate_pair(
         rec_base_with_coord.rsplit('_', 1)[-1], sep='-'
     )
-    #if None in (rec_start, rec_end, len_rec):
-        #return 1
+    if None in (rec_start, rec_end, len_rec):
+        return 1
 
     if rec_start < rec_end:
         rec_left = (rec_start == 1)
@@ -179,22 +182,22 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
     if not rec_left and not rec_right:
         return 1
 
-    #if not pre_recipient_str:
-        #return 1
+    if not pre_recipient_str:
+        return 1
 
     pre_parts = pre_recipient_str.rsplit('_', 2)
-    #if len(pre_parts) != 3:
-        #return 1
+    if len(pre_parts) != 3:
+        return 1
     pre_base = pre_parts[0]
     pre_start, pre_end = parse_coordinate_pair(
         f"{pre_parts[1]}_{pre_parts[2]}", sep='_'
     )
-    #if pre_start is None or pre_end is None:
-        #return 1
+    if pre_start is None or pre_end is None:
+        return 1
 
     len_pre = extract_length_from_base(pre_base)
-    #if len_pre is None:
-        #return 1
+    if len_pre is None:
+        return 1
 
     pre_left = (pre_start == 1)
     pre_right = (pre_end == len_pre)
@@ -246,6 +249,9 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
     """
     Read one *_HGT_statistics*.txt file, aggregate gene rows into events
     keyed by (recipient_base, donor_base), and attach pre-recipient info.
+
+    Gene-level fields (Gene_Description, Module_Classification) are stored
+    as lists and later joined with " | ".
     """
     event_stats = defaultdict(lambda: {
         'length': 0,
@@ -255,6 +261,9 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
         'pure_rec_base': None,
         'pre_recipient': "",
         'rate': None,
+        'gene_descriptions': [],
+        'module_classes': [],
+        'taxonomic_species': [],
     })
 
     try:
@@ -276,11 +285,19 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
         if len(parts) < 13:
             continue
 
-        recipient_contig = parts[7]
-        donor_contig = parts[8]
-        rate = parts[9]
-        recipient_species = parts[11]
-        donor_species = parts[12]
+        # Column layout in *_HGT_statistics*.txt:
+        # 0 GC_nonHGT | 1 GC_nonHGTdonor | 2 GC_HGT | 3 GC_origin
+        # 4 Gene_Description | 5 Module_Classification | 6 Taxonomic_Species
+        # 7 Recipient_Contig | 8 Donor_Contig | 9 rate | 10 length
+        # 11 recipient_species | 12 donor_species
+        gene_description    = parts[4]
+        module_class        = parts[5]
+        taxonomic_species   = parts[6]
+        recipient_contig    = parts[7]
+        donor_contig        = parts[8]
+        rate                = parts[9]
+        recipient_species   = parts[11]
+        donor_species       = parts[12]
 
         rec_base, length = extract_base_and_length(recipient_contig, True)
         don_base, _ = extract_base_and_length(donor_contig, False)
@@ -297,6 +314,14 @@ def parse_hgt_stat_file(stat_filepath, stat_basename, blast_dir):
         if stats['pure_rec_base'] is None:
             stats['pure_rec_base'] = pure_rec_base
             stats['rate'] = rate
+
+        # Collect gene-level content
+        if gene_description and gene_description not in ("", "-"):
+            stats['gene_descriptions'].append(gene_description)
+        if module_class and module_class not in ("", "-"):
+            stats['module_classes'].append(module_class)
+        if taxonomic_species and taxonomic_species not in ("", "-"):
+            stats['taxonomic_species'].append(taxonomic_species)
 
     # Attach Pre_Recipient from the corresponding BLAST file, if available
     blast_filename = stat_basename.replace("_HGT_statistics", "_blast_recipient")
@@ -421,6 +446,11 @@ def main():
                 except ValueError:
                     rate_val = stats['rate']
 
+                # ---- 3) Concatenate gene-level content with " | " ----
+                gene_desc_joined = " | ".join(stats['gene_descriptions'])
+                module_joined = " | ".join(stats['module_classes'])
+                tax_species_joined = " | ".join(stats['taxonomic_species'])
+
                 all_records.append({
                     "FMT": sample,
                     "Recipient_Base": rec_base,
@@ -432,9 +462,9 @@ def main():
                     "Gene_Count": stats['count'],
                     "Recipient_Species": rec_species_full,
                     "Donor_Species": don_species_full,
-                    "Recipient_Species_Simple": rec_species_simple,
-                    "Donor_Species_Simple": don_species_simple,
-                    "File": stat_file,
+                    "Gene_Description": gene_desc_joined,
+                    "Module_Classification": module_joined,
+                    "Taxonomic_Species": tax_species_joined,
                 })
 
     # ---------------- Summary ----------------
@@ -450,11 +480,19 @@ def main():
 
     # ---------------- Write Excel (Overall only) ----------------
     column_order = [
-        "FMT", "Recipient_Base", "Pre_Recipient", "Donor_Base", "Judgment",
-        "Region_Length", "Homologous_Rate", "Gene_Count",
-        "Recipient_Species", "Donor_Species",
-        "Recipient_Species_Simple", "Donor_Species_Simple",
-        "File",
+        "FMT",
+        "Recipient_Base",
+        "Pre_Recipient",
+        "Donor_Base",
+        "Judgment",
+        "Region_Length",
+        "Homologous_Rate",
+        "Gene_Count",
+        "Recipient_Species",
+        "Donor_Species",
+        "Gene_Description",
+        "Module_Classification",
+        "Taxonomic_Species",
     ]
 
     overall_df = pd.DataFrame(all_records)
