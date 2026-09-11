@@ -223,7 +223,6 @@ python qc_annotation.py
 mkdir -p final
 
 # quality control for microbial divergent source searching
-source activate kraken2 # please use your own environment name for utilization
 
 #The convert.sh script is a helper that extracts the specific contig sequences needed for downstream taxonomic annotation (at species-level) (via Kraken2).
 # For each sample pair (Pre‑FMT, Donor, Post‑FMT), it: Reads the previously generated result/{post}_HGT_full.txt to obtain the donor contig names
@@ -276,7 +275,6 @@ python add_gc_nonhgt.py
 rm ./*_HGT_statistics.txt
 
 # please use your own environment name for utilization
-source activate base
 mkdir filter
 
 #To further confirm the factuality of those detected HGT regions, the recipient- and donor-source context were extracted and independently
@@ -313,3 +311,12 @@ python filterchecking.py
 # (events that may represent edge regions not well covered by 2nd generation
 # sequencing or assembly technologies) and produces a clean, aggregated table of validated HGT events for downstream statistical analysis.
 python quality_control_processing.py
+#delet prcoessing directories
+rm -rf final
+rm -rf result
+rm -rf output
+rm -rf HGT
+rm -rf HGT1
+rm -rf blast_results
+rm -rf blast_dbs
+rm -rf filter
