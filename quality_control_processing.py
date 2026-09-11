@@ -166,8 +166,8 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
     rec_start, rec_end = parse_coordinate_pair(
         rec_base_with_coord.rsplit('_', 1)[-1], sep='-'
     )
-    if None in (rec_start, rec_end, len_rec):
-        return 1
+    #if None in (rec_start, rec_end, len_rec):
+        #return 1
 
     if rec_start < rec_end:
         rec_left = (rec_start == 1)
@@ -179,22 +179,22 @@ def calculate_judgment(rec_base_with_coord, pure_rec_base, pre_recipient_str):
     if not rec_left and not rec_right:
         return 1
 
-    if not pre_recipient_str:
-        return 1
+    #if not pre_recipient_str:
+        #return 1
 
     pre_parts = pre_recipient_str.rsplit('_', 2)
-    if len(pre_parts) != 3:
-        return 1
+    #if len(pre_parts) != 3:
+        #return 1
     pre_base = pre_parts[0]
     pre_start, pre_end = parse_coordinate_pair(
         f"{pre_parts[1]}_{pre_parts[2]}", sep='_'
     )
-    if pre_start is None or pre_end is None:
-        return 1
+    #if pre_start is None or pre_end is None:
+        #return 1
 
     len_pre = extract_length_from_base(pre_base)
-    if len_pre is None:
-        return 1
+    #if len_pre is None:
+        #return 1
 
     pre_left = (pre_start == 1)
     pre_right = (pre_end == len_pre)
